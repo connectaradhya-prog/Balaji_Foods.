@@ -1,0 +1,4748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Balaji Foods — Diwali Delights & Authentic Faral</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description"
+    content="Authentic Maharashtrian Diwali snacks made with pure ghee. Order premium Chivda, Ladoo, Shankarpali, and Gift Boxes." />
+
+  <!-- Fonts: Playfair Display for headings, Poppins for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Razorpay Checkout SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    /* Premium "Royal Indian" Design System */
+    :root {
+      --saffron: #E37340;
+      --saffron-dark: #C95B28;
+      --gold: #D4AF37;
+      --gold-light: #F3E5AB;
+      --crimson: #8A1C14;
+      --crimson-dark: #5C100A;
+      --off-white: #FDFBF7;
+      --text-dark: #2C1A14;
+      --text-muted: #66524A;
+      --text-light: #FDFBF7;
+      --glass-bg: rgba(253, 251, 247, 0.92);
+      --glass-border: rgba(212, 175, 55, 0.35);
+      --shadow: 0 10px 30px 0 rgba(138, 28, 20, 0.12);
+      --shadow-hover: 0 20px 45px 0 rgba(138, 28, 20, 0.25);
+
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+    }
+
+    /* Lenis Smooth Scroll Setup */
+    html.lenis,
+    html.lenis body {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-dark);
+      background-color: var(--off-white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-heading);
+      color: var(--crimson);
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 6%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--crimson);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .logo i {
+      color: var(--gold);
+      font-size: 1.6rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      display: none;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--saffron);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    @media(min-width: 768px) {
+      .nav-links a {
+        display: block;
+      }
+    }
+
+    .nav-links a:hover {
+      color: var(--saffron);
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: rgba(227, 115, 64, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      color: var(--crimson);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--crimson);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(138, 28, 20, 0.25);
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: var(--saffron);
+      color: white;
+      font-size: 0.75rem;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      border: 2px solid white;
+    }
+
+    /* Base Buttons */
+    .btn {
+      background: linear-gradient(135deg, var(--crimson), var(--saffron-dark));
+      color: white;
+      border: none;
+      padding: 13px 28px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(227, 115, 64, 0.3);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(227, 115, 64, 0.45);
+      background: linear-gradient(135deg, var(--saffron-dark), var(--crimson));
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--crimson);
+      font-weight: 600;
+      padding: 11px 24px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 130px 5% 80px;
+      background: radial-gradient(ellipse at 50% 45%, #2d140a 0%, #1c0d06 48%, #110703 80%, #0b0401 100%);
+    }
+
+    .hero-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(75px);
+      opacity: 0.75;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: rgba(227, 115, 64, 0.4);
+      top: -80px;
+      left: -80px;
+      animation: floatOrb 10s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+      width: 520px;
+      height: 520px;
+      background: rgba(212, 175, 55, 0.35);
+      bottom: -100px;
+      right: -100px;
+      animation: floatOrb 12s ease-in-out infinite alternate-reverse;
+    }
+
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: rgba(138, 28, 20, 0.5);
+      top: 35%;
+      left: 30%;
+      animation: floatOrb 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatOrb {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(40px, -30px) scale(1.12);
+      }
+
+      100% {
+        transform: translate(-30px, 40px) scale(0.92);
+      }
+    }
+
+    .hero-mandala-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 780px;
+      height: 780px;
+      transform: translate(-50%, -50%);
+      border: 1px dashed rgba(212, 175, 55, 0.22);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: spinMandala 60s linear infinite;
+    }
+
+    .hero-mandala-ring::after {
+      content: '';
+      position: absolute;
+      inset: 45px;
+      border: 1px solid rgba(227, 115, 64, 0.15);
+      border-radius: 50%;
+    }
+
+    @keyframes spinMandala {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    #bg-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.95;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    @media(min-width: 900px) {
+      .hero-content {
+        flex-direction: row;
+        text-align: left;
+        justify-content: space-between;
+      }
+    }
+
+    .hero-text {
+      flex: 1;
+      color: var(--text-light);
+      max-width: 600px;
+    }
+
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-text h1 {
+      color: var(--gold-light);
+      font-size: 3.6rem;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .hero-text h1 span {
+      color: var(--saffron);
+      display: inline-block;
+    }
+
+    .hero-text p {
+      font-size: 1.15rem;
+      color: rgba(253, 251, 247, 0.88);
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+
+    /* Interactive Horizontal Selector Accordion for Hero */
+    .hero-selector-wrapper {
+      flex: 1.45;
+      width: 100%;
+      max-width: 780px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .interactive-selector-container {
+      display: flex;
+      width: 100%;
+      height: 490px;
+      min-width: 340px;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      box-shadow: 0 30px 75px rgba(0, 0, 0, 0.7), 0 0 45px rgba(212, 175, 55, 0.3);
+      background: #140b08;
+      position: relative;
+    }
+
+    .selector-option {
+      position: relative;
+      flex: 1 1 0%;
+      min-width: 64px;
+      margin: 0;
+      border-right: 1px solid rgba(212, 175, 55, 0.28);
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      will-change: flex-grow, box-shadow, background-size;
+    }
+
+    .selector-option:last-child {
+      border-right: none;
+    }
+
+    .selector-option.active {
+      flex: 7.5 1 0%;
+      border-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 0 35px rgba(212, 175, 55, 0.3);
+      z-index: 10;
+    }
+
+    .selector-shadow {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 170px;
+      pointer-events: none;
+      transition: all 0.7s ease-in-out;
+      background: linear-gradient(to top, rgba(12, 5, 3, 0.97) 0%, rgba(12, 5, 3, 0.65) 55%, transparent 100%);
+    }
+
+    .selector-badge-tag {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      background: var(--saffron);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 18px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--gold);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.5s ease 0.2s;
+    }
+
+    .selector-option.active .selector-badge-tag {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .selector-badge-price {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(44, 26, 20, 0.95);
+      color: var(--gold-light);
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--gold);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.5s ease 0.25s;
+    }
+
+    .selector-option.active .selector-badge-price {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .selector-label {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 54px;
+      z-index: 2;
+      pointer-events: none;
+      padding: 0 18px;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .selector-icon {
+      min-width: 48px;
+      max-width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(36, 22, 18, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      transition: transform 0.3s ease;
+    }
+
+    .selector-option:hover .selector-icon {
+      transform: scale(1.12);
+      border-color: var(--saffron);
+    }
+
+    .selector-info {
+      color: white;
+      whitespace: nowrap;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .selector-info .main-title {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--gold-light);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateX(25px);
+      font-family: var(--font-heading);
+    }
+
+    .selector-info .sub-title {
+      font-size: 0.88rem;
+      color: rgba(253, 251, 247, 0.85);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      transform: translateX(25px);
+      font-weight: 400;
+      margin-top: 3px;
+    }
+
+    .selector-option.active .selector-info .main-title,
+    .selector-option.active .selector-info .sub-title {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .selector-click-hint {
+      position: absolute;
+      bottom: 74px;
+      right: 18px;
+      background: rgba(227, 115, 64, 0.95);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 16px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.4s ease 0.3s;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--gold);
+    }
+
+    .selector-option.active .selector-click-hint {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stats Bar */
+    .hero-stats-bar {
+      display: flex;
+      gap: 24px;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(212, 175, 55, 0.25);
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-light);
+      font-size: 0.95rem;
+    }
+
+    .stat-text strong {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+
+    .stat-text span {
+      font-size: 0.75rem;
+      color: rgba(253, 251, 247, 0.75);
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Immersive Interactive Story Section */
+    .story-interactive-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .story-header-box {
+      text-align: center;
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .story-header-box h2 {
+      font-size: 3rem;
+      color: var(--crimson);
+      font-family: var(--font-heading);
+      margin-bottom: 12px;
+    }
+
+    /* Era Timeline Selector */
+    .story-era-selector {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .era-btn {
+      background: white;
+      border: 2px solid var(--gold);
+      color: var(--text-dark);
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+    }
+
+    .era-btn.active,
+    .era-btn:hover {
+      background: var(--crimson);
+      color: white;
+      border-color: var(--crimson);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(138, 28, 20, 0.3);
+    }
+
+    /* Story Display Grid */
+    .story-display-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+      background: white;
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 15px 45px rgba(138, 28, 20, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    @media(min-width: 850px) {
+      .story-display-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    .story-image-box {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      border: 2px solid var(--gold);
+      height: 380px;
+    }
+
+    .story-image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .story-image-box:hover img {
+      transform: scale(1.06);
+    }
+
+    .story-year-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--saffron);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Interactive Story Pillars Grid */
+    .story-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .story-pillar-card {
+      background: white;
+      padding: 26px;
+      border-radius: 22px;
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      box-shadow: 0 8px 24px rgba(138, 28, 20, 0.06);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-pillar-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--saffron);
+      box-shadow: 0 18px 38px rgba(227, 115, 64, 0.2);
+    }
+
+    .pillar-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(227, 115, 64, 0.12);
+      color: var(--saffron);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      transition: all 0.3s;
+    }
+
+    .story-pillar-card:hover .pillar-icon {
+      background: var(--saffron);
+      color: white;
+      transform: rotate(6deg) scale(1.1);
+    }
+
+    .pillar-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--crimson);
+      margin-bottom: 8px;
+      font-family: var(--font-heading);
+    }
+
+    .pillar-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .pillar-action {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--saffron);
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Section Layouts */
+    section {
+      padding: 90px 6%;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .section-divider {
+      width: 70px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--saffron));
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Story Section */
+    .story-section {
+      background: var(--off-white);
+      padding: 80px 6%;
+      position: relative;
+    }
+
+    .story-interactive-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .story-header-box {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .story-header-box h2 {
+      font-size: 2.5rem;
+      color: var(--crimson);
+      margin-bottom: 8px;
+    }
+
+    .story-header-box p {
+      color: var(--text-muted);
+      font-size: 1.08rem;
+    }
+
+    .story-card-wrapper {
+      background: white;
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: 0 15px 45px rgba(138, 28, 20, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    .story-progress-container {
+      width: 100%;
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    #story-progress-bar {
+      width: 33%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--saffron));
+      transition: width 0.4s ease;
+    }
+
+    #story-feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .story-steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .feature-step-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fff;
+      border: 1px solid #eee;
+    }
+
+    .feature-step-item.active {
+      background: rgba(227, 115, 64, 0.06);
+      border-color: rgba(227, 115, 64, 0.2);
+    }
+
+    .step-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      color: #666;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .feature-step-item.active .step-badge {
+      background: var(--saffron);
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(227, 115, 64, 0.3);
+    }
+
+    .step-text-wrap {
+      flex: 1;
+    }
+
+    .step-heading {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      font-family: var(--font-heading);
+    }
+
+    .feature-step-item.active .step-heading {
+      color: var(--crimson);
+    }
+
+    .step-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .story-showcase-card {
+      position: relative;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      border: 2px solid var(--gold);
+      height: 380px;
+    }
+
+    .story-showcase-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .story-showcase-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17,7,4,0.85) 0%, rgba(17,7,4,0.3) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+    }
+
+    .story-year-badge {
+      align-self: flex-start;
+      background: var(--saffron);
+      color: white;
+      padding: 5px 14px;
+      border-radius: 18px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+    }
+
+    #story-title-text {
+      color: white;
+      font-size: 1.6rem;
+      font-family: var(--font-heading);
+      margin-bottom: 6px;
+    }
+
+    #story-desc-text {
+      color: rgba(255,255,255,0.88);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    #story-quote-text {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    /* Products Menu Section with Spotlight Glow & Card Lift */
+    .menu-section {
+      background: rgba(243, 229, 171, 0.18);
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 45px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: white;
+      border: 2px solid var(--saffron);
+      color: var(--saffron-dark);
+      font-family: var(--font-body);
+      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: var(--saffron);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(227, 115, 64, 0.3);
+    }
+
+    /* Products Grid Container */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 34px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Product Card with Smooth Lift & Spotlight Glow */
+    .product-card {
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px 0 rgba(138, 28, 20, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      will-change: transform, box-shadow;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      cursor: pointer;
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 23px;
+      padding: 2px;
+      background: radial-gradient(280px circle at var(--x, 50%) var(--y, 50%), rgba(212, 175, 55, 0.85), rgba(227, 115, 64, 0.4), transparent 70%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.015);
+      box-shadow: 0 20px 40px rgba(138, 28, 20, 0.18), 0 0 30px rgba(212, 175, 55, 0.25);
+      border-color: rgba(212, 175, 55, 0.5);
+    }
+
+    .product-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-shine {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      z-index: 4;
+    }
+
+    .product-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 235px;
+      transform: translateZ(30px);
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.08);
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--crimson);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transform: translateZ(45px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .view-info-hint {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 12px;
+      transform: translateZ(40px);
+      opacity: 0.88;
+      transition: all 0.3s;
+    }
+
+    .product-card:hover .view-info-hint {
+      background: var(--saffron);
+      opacity: 1;
+    }
+
+    .product-info {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      text-align: left;
+      transform: translateZ(20px);
+    }
+
+    .product-title {
+      color: var(--crimson);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-family: var(--font-heading);
+    }
+
+    .product-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      transform: translateZ(25px);
+    }
+
+    .product-price {
+      font-weight: 700;
+      color: var(--saffron-dark);
+      font-size: 1.3rem;
+    }
+
+    .add-to-cart-btn {
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dark));
+      color: white;
+      text-align: center;
+    }
+
+    .testimonials h2 {
+      color: var(--gold-light);
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .test-card {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      backdrop-filter: blur(5px);
+    }
+
+    .stars {
+      color: var(--gold);
+      margin-bottom: 14px;
+      font-size: 1.1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text-dark);
+      color: white;
+      text-align: center;
+      padding: 50px 6% 30px;
+    }
+
+    .footer-logo {
+      font-size: 2.2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-family: var(--font-heading);
+      font-weight: 800;
+    }
+
+    /* Overlays & Modals */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.68);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .side-panel {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+      max-width: 440px;
+      background: var(--off-white);
+      height: 100vh;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .overlay.active .side-panel {
+      transform: translateX(0);
+    }
+
+    .panel-header {
+      padding: 22px 24px;
+      background: var(--crimson);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header h2 {
+      color: white;
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+
+    .close-btn:hover {
+      opacity: 1;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 16px;
+      background: white;
+      padding: 12px;
+      border-radius: 14px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .cart-item img {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    .cart-item-price {
+      color: var(--saffron-dark);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .qty-btn {
+      background: #f0f0f0;
+      border: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .remove-btn {
+      color: #bbb;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-size: 1.1rem;
+    }
+
+    .remove-btn:hover {
+      color: var(--crimson);
+    }
+
+    .cart-footer {
+      padding: 24px;
+      background: white;
+      border-top: 1px solid #eee;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    #delivery-form {
+      display: none;
+      margin-bottom: 18px;
+    }
+
+    #delivery-form input,
+    #delivery-form textarea {
+      width: 100%;
+      padding: 11px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+    }
+
+    /* Receipt Overlay */
+    .receipt-modal {
+      position: relative;
+      background: white;
+      padding: 28px;
+      border-radius: 20px;
+      width: 92%;
+      max-width: 440px;
+      box-shadow: var(--shadow-hover);
+      color: var(--text-dark);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .receipt-header {
+      border-bottom: 2px dashed #ddd;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .receipt-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .receipt-details {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .receipt-items {
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+    }
+
+    .receipt-item-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .receipt-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--crimson);
+      margin-bottom: 20px;
+    }
+
+    /* Track & Auth Center Modals */
+    .modal-center {
+      position: relative;
+      background: white;
+      padding: 32px;
+      border-radius: 24px;
+      width: 92%;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    /* Full-Screen Product Detail Showcase Modal */
+    .product-detail-modal {
+      position: relative;
+      background: var(--off-white);
+      border-radius: 28px;
+      width: 92%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--gold);
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    @media(min-width: 768px) {
+      .product-detail-modal {
+        grid-template-columns: 1fr 1.1fr;
+      }
+    }
+
+    .detail-img-showcase {
+      background: radial-gradient(circle at center, #2C1A14 0%, #110A08 100%);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .detail-img-showcase img {
+      width: 100%;
+      max-width: 340px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      border: 2px solid var(--gold);
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      transition: transform 0.5s ease;
+    }
+
+    .detail-img-showcase img:hover {
+      transform: scale(1.04) rotate(1deg);
+    }
+
+    .detail-purity-badge {
+      margin-top: 20px;
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .detail-body {
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .detail-title {
+      font-size: 2.2rem;
+      color: var(--crimson);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .detail-subtitle {
+      font-size: 0.95rem;
+      color: var(--saffron-dark);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .detail-story {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .detail-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .meta-card {
+      background: white;
+      padding: 10px;
+      border-radius: 14px;
+      text-align: center;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .meta-card i {
+      color: var(--saffron);
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .meta-card span {
+      font-size: 0.75rem;
+      color: #777;
+      display: block;
+    }
+
+    .meta-card strong {
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .ingredients-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .ingredient-chip {
+      background: rgba(227, 115, 64, 0.1);
+      border: 1px solid rgba(227, 115, 64, 0.3);
+      color: var(--crimson);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 16px;
+    }
+
+    .pack-selector {
+      margin-bottom: 22px;
+    }
+
+    .pack-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .pack-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pack-btn {
+      flex: 1;
+      padding: 10px 14px;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s;
+    }
+
+    .pack-btn.active {
+      border-color: var(--saffron);
+      background: rgba(227, 115, 64, 0.08);
+      color: var(--crimson);
+      font-weight: 700;
+    }
+
+    .pack-btn .pack-size {
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: block;
+    }
+
+    .pack-btn .pack-price {
+      font-size: 0.8rem;
+      color: var(--saffron-dark);
+      display: block;
+    }
+
+    .detail-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .detail-qty {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 6px 14px;
+      border-radius: 25px;
+    }
+
+    .detail-qty button {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--crimson);
+    }
+
+    .detail-qty span {
+      font-weight: 700;
+      font-size: 1rem;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Auth Modal Tabs & Form Styles */
+    .auth-tabs {
+      display: flex;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 24px;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      padding: 12px;
+      background: none;
+      border: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #888;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+      font-family: var(--font-body);
+    }
+
+    .auth-tab-btn.active {
+      color: var(--crimson);
+      border-bottom-color: var(--crimson);
+    }
+
+    .auth-input-group {
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .auth-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 5px;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      transition: border-color 0.2s;
+    }
+
+    .auth-input:focus {
+      outline: none;
+      border-color: var(--saffron);
+      box-shadow: 0 0 0 3px rgba(227, 115, 64, 0.15);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media(max-width: 500px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Stepper for Track */
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 30px;
+    }
+
+    .stepper::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #eee;
+      z-index: 1;
+    }
+
+    .step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      flex: 1;
+    }
+
+    .step-icon {
+      width: 32px;
+      height: 32px;
+      background: #eee;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #999;
+      font-size: 0.85rem;
+    }
+
+    .step.active .step-icon {
+      background: var(--saffron);
+      color: white;
+      box-shadow: 0 0 12px rgba(227, 115, 64, 0.5);
+    }
+
+    .step-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Toast Notification */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: var(--text-dark);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.3s ease-out, fadeOut 0.3s ease-in 2.7s forwards;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toast.info {
+      border-left: 4px solid var(--gold);
+    }
+
+    .toast.success {
+      border-left: 4px solid #25D366;
+    }
+
+    .toast.error {
+      border-left: 4px solid #E74C3C;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Skeleton Screen */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 22px;
+      height: 360px;
+    }
+
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }    /* Comprehensive Mobile Responsive Polish & Alignment Fixes */
+    @media (max-width: 900px) {
+      .hero-content {
+        flex-direction: column-reverse !important;
+        text-align: center;
+        gap: 16px;
+      }
+
+      .hero-text {
+        max-width: 100%;
+      }
+
+      .hero-selector-wrapper {
+        max-width: 100%;
+        width: 100%;
+        margin: 6px 0 12px;
+      }
+
+      .hero-stats-bar {
+        justify-content: center;
+      }
+
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .product-detail-modal {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 8px 4%;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-actions {
+        gap: 6px;
+      }
+
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
+      }
+
+      section {
+        padding: 24px 4% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+      }
+
+      .hero {
+        padding: 68px 4% 24px;
+        min-height: auto;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+      }
+
+      .hero-tagline {
+        font-size: 0.74rem;
+        padding: 3px 10px;
+        margin-bottom: 6px;
+      }
+
+      .hero-text h1 {
+        font-size: 1.65rem;
+        line-height: 1.2;
+        margin-bottom: 8px;
+        word-break: break-word;
+      }
+
+      .hero-text p {
+        font-size: 0.86rem;
+        margin-bottom: 12px;
+        line-height: 1.45;
+      }
+
+      .hero-stats-bar {
+        gap: 10px;
+        margin-top: 12px;
+        padding-top: 10px;
+      }
+
+      .stat-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.78rem;
+      }
+
+      .stat-text strong {
+        font-size: 0.78rem;
+      }
+
+      .stat-text span {
+        font-size: 0.66rem;
+      }
+
+      .orb-1, .orb-2, .orb-3 {
+        max-width: 240px !important;
+        max-height: 240px !important;
+      }
+
+      .hero-mandala-ring {
+        width: 260px !important;
+        height: 260px !important;
+      }
+
+      /* Interactive Hero Accordion Click Slider for Mobile */
+      .interactive-selector-container {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        height: 220px !important;
+        min-height: 220px !important;
+        gap: 6px !important;
+        padding: 6px !important;
+        border-radius: 18px !important;
+        background: #140b08 !important;
+        border: 2px solid var(--gold) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      .interactive-selector-container::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .selector-option {
+        flex: 1 1 0% !important;
+        min-width: 48px !important;
+        scroll-snap-align: center;
+        height: 100% !important;
+        border-right: none !important;
+        border: 1px solid rgba(212, 175, 55, 0.4) !important;
+        border-radius: 14px !important;
+        position: relative !important;
+        background-size: cover !important;
+        background-position: center !important;
+        transition: flex 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
+      }
+
+      .selector-option.active {
+        flex: 5.5 1 0% !important;
+        min-width: 210px !important;
+        border-color: var(--gold) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(212, 175, 55, 0.3) !important;
+      }
+
+      .selector-shadow {
+        height: 110px !important;
+      }
+
+      .selector-badge-tag,
+      .selector-badge-price {
+        opacity: 0 !important;
+        transform: translateY(-6px) !important;
+        top: 8px !important;
+        font-size: 0.68rem !important;
+        padding: 3px 8px !important;
+        border-radius: 10px !important;
+        transition: all 0.3s ease !important;
+      }
+
+      .selector-option.active .selector-badge-tag,
+      .selector-option.active .selector-badge-price {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      .selector-badge-tag {
+        left: 8px !important;
+      }
+
+      .selector-badge-price {
+        right: 8px !important;
+      }
+
+      .selector-label {
+        bottom: 8px !important;
+        padding: 0 8px !important;
+        gap: 6px !important;
+        height: 40px !important;
+      }
+
+      .selector-icon {
+        min-width: 32px !important;
+        max-width: 32px !important;
+        height: 32px !important;
+        font-size: 0.85rem !important;
+      }
+
+      .selector-info .main-title {
+        font-size: 0.9rem !important;
+        opacity: 0 !important;
+        transform: translateY(4px) !important;
+        color: var(--gold-light) !important;
+        transition: all 0.3s ease !important;
+      }
+
+      .selector-option.active .selector-info .main-title {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      .selector-info .sub-title {
+        font-size: 0.7rem !important;
+        opacity: 0 !important;
+        transform: translateY(4px) !important;
+        transition: all 0.3s ease !important;
+      }
+
+      .selector-option.active .selector-info .sub-title {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      .selector-click-hint {
+        opacity: 0 !important;
+        transform: translateY(4px) !important;
+        bottom: 48px !important;
+        right: 8px !important;
+        font-size: 0.66rem !important;
+        padding: 3px 8px !important;
+        border-radius: 10px !important;
+        transition: all 0.3s ease !important;
+      }
+
+      .selector-option.active .selector-click-hint {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      /* Story Section Mobile Optimization (Royal Dark Gold Heritage Card) */
+      .story-section {
+        padding: 20px 4% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+      }
+
+      .story-interactive-container {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+      }
+
+      .story-card-wrapper {
+        background: linear-gradient(135deg, #24140e, #140b08) !important;
+        border: 1px solid var(--gold) !important;
+        border-radius: 18px !important;
+        padding: 14px 10px !important;
+        color: white !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35) !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+      }
+
+      .story-header-box {
+        margin-bottom: 8px !important;
+        text-align: center !important;
+      }
+
+      .section-header h2 {
+        font-size: 1.35rem !important;
+        color: var(--crimson) !important;
+        margin-bottom: 2px !important;
+      }
+
+      .section-header p {
+        font-size: 0.82rem !important;
+        color: var(--text-muted) !important;
+        font-weight: 500 !important;
+        opacity: 1 !important;
+      }
+
+      .story-header-box h2 {
+        font-size: 1.35rem !important;
+        color: var(--gold-light) !important;
+        margin-bottom: 2px !important;
+      }
+
+      .story-header-box p {
+        font-size: 0.8rem !important;
+        color: rgba(255, 255, 255, 0.88) !important;
+      }
+
+      .story-progress-container {
+        height: 3px !important;
+        margin-bottom: 12px !important;
+      }
+
+      #story-feature-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      .story-steps-list {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 6px !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .feature-step-item {
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+        padding: 8px 4px !important;
+        border-radius: 12px !important;
+        gap: 4px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(212, 175, 55, 0.25) !important;
+        text-align: center !important;
+      }
+
+      .feature-step-item.active {
+        background: var(--saffron) !important;
+        border-color: var(--gold) !important;
+      }
+
+      .step-desc {
+        display: none !important;
+      }
+
+      .step-title-full {
+        display: none !important;
+      }
+
+      .step-heading {
+        font-size: 0.75rem !important;
+        color: white !important;
+        white-space: normal !important;
+        margin: 0 !important;
+        line-height: 1.1 !important;
+        word-break: break-word !important;
+      }
+
+      .feature-step-item.active .step-heading {
+        color: white !important;
+      }
+
+      .step-badge {
+        width: 20px !important;
+        height: 20px !important;
+        font-size: 0.68rem !important;
+        flex-shrink: 0 !important;
+      }
+
+      .story-showcase-card {
+        height: 190px !important;
+        border-radius: 14px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        position: relative !important;
+        overflow: hidden !important;
+      }
+
+      .story-showcase-overlay {
+        padding: 12px !important;
+        position: absolute !important;
+        inset: 0 !important;
+        background: linear-gradient(to top, rgba(17,7,4,0.92) 0%, rgba(17,7,4,0.4) 60%, transparent 100%) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+      }
+
+      .story-year-badge {
+        font-size: 0.68rem !important;
+        padding: 2px 8px !important;
+        margin-bottom: 4px !important;
+        align-self: flex-start !important;
+      }
+
+      #story-title-text {
+        font-size: 1.05rem !important;
+        margin-bottom: 4px !important;
+        line-height: 1.25 !important;
+        color: white !important;
+      }
+
+      #story-desc-text {
+        font-size: 0.78rem !important;
+        line-height: 1.35 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        color: rgba(255, 255, 255, 0.88) !important;
+      }
+
+      #story-quote-text {
+        display: none !important;
+      }
+    }
+
+    /* 2-Column Mobile Product Menu Grid */
+    @media (max-width: 640px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+
+      .product-card {
+        border-radius: 14px !important;
+      }
+
+      .product-img-wrapper {
+        height: 115px !important;
+      }
+
+      .product-tag {
+        font-size: 0.62rem !important;
+        padding: 2px 7px !important;
+        top: 6px !important;
+        left: 6px !important;
+        border-radius: 8px !important;
+      }
+
+      .view-info-hint {
+        display: none !important;
+      }
+
+      .product-info {
+        padding: 8px 8px 10px !important;
+      }
+
+      .product-title {
+        font-size: 0.88rem !important;
+        margin-bottom: 2px !important;
+        line-height: 1.25 !important;
+        min-height: 2.3em;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .product-desc {
+        display: none !important;
+      }
+
+      .product-bottom {
+        margin-top: 4px !important;
+        gap: 4px !important;
+      }
+
+      .product-price {
+        font-size: 0.88rem !important;
+      }
+
+      .product-price span {
+        font-size: 0.65rem !important;
+      }
+
+      .add-to-cart-btn {
+        padding: 5px 8px !important;
+        font-size: 0.72rem !important;
+        border-radius: 12px !important;
+      }
+
+      .detail-body {
+        padding: 16px 12px;
+      }
+
+      .detail-img-showcase {
+        padding: 16px 12px;
+      }
+
+      .detail-img-showcase img {
+        max-width: 200px;
+      }
+
+      .detail-title {
+        font-size: 1.35rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 1.45rem;
+      }
+
+      .hero-stats-bar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .side-panel {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .modal-center {
+        padding: 16px 12px;
+        width: 95%;
+        max-height: 92vh;
+      }
+
+      .receipt-modal {
+        padding: 16px 12px;
+        width: 95%;
+      }
+
+      .cart-footer {
+        padding: 14px 12px;
+      }
+
+      .btn {
+        padding: 8px 14px;
+        font-size: 0.82rem;
+      }
+
+      .btn-outline {
+        padding: 7px 12px;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar">
+    <a href="#" class="logo"><i class="fa-solid fa-om"></i> Balaji Foods</a>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#story">Our Story</a>
+      <a href="#menu">Menu</a>
+      <a href="#testimonials">Reviews</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="nav-login-btn" onclick="openLogin()" title="Login / Register">
+        <i class="fa-solid fa-user"></i>
+      </button>
+      <button class="icon-btn" onclick="openMyOrders()" title="My Orders History">
+        <i class="fa-solid fa-box-archive"></i>
+      </button>
+      <button class="icon-btn" onclick="openTrackModal()" title="Track Order">
+        <i class="fa-solid fa-truck-fast"></i>
+      </button>
+      <button class="icon-btn" onclick="openCart()" title="View Cart">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Login & Signup Overlay -->
+  <div class="overlay" id="login-overlay">
+    <div class="modal-center" data-lenis-prevent>
+      <button class="close-btn" style="position:absolute; top:16px; right:20px; color:var(--text-dark);"
+        onclick="closeLogin()"><i class="fa-solid fa-xmark"></i></button>
+
+      <!-- User profile state if logged in -->
+      <div id="auth-user-info" style="display:none;">
+        <h2 style="margin-bottom: 6px;">Namaste, <span id="user-display-name"></span>!</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">You are logged in to Balaji Foods.
+        </p>
+
+        <div
+          style="text-align: left; background: #fdf8f4; border: 1px solid var(--gold); padding: 18px; border-radius: 16px; margin-bottom: 22px;">
+          <p style="font-size: 0.85rem; margin-bottom: 6px; color: var(--crimson);"><strong>Contact Details:</strong>
+          </p>
+          <p id="user-display-email" style="font-size: 0.88rem; color: #444; margin-bottom: 4px;"></p>
+          <p id="user-display-mobile" style="font-size: 0.88rem; color: #444; margin-bottom: 12px;"></p>
+
+          <p style="font-size: 0.85rem; margin-bottom: 6px; color: var(--crimson);"><strong>Saved Address:</strong></p>
+          <p id="user-display-address" style="font-size: 0.88rem; color: #444; line-height:1.5; margin-bottom: 14px;">
+          </p>
+        </div>
+        <button class="btn" style="width:100%; margin-bottom: 12px;" onclick="closeLogin(); openMyOrders();"><i
+            class="fa-solid fa-box-archive"></i> My Orders History</button>
+        <button class="btn-outline" style="width:100%" onclick="userLogout()"><i
+            class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+
+      <!-- Auth Tabs for Login / Signup -->
+      <div id="auth-forms-container">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')">Log In</button>
+          <button class="auth-tab-btn" id="tab-btn-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login View -->
+        <div id="auth-login-view">
+          <div id="auth-step-1">
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 16px; text-align:center;">Enter your
+              email to receive a secure login code.</p>
+            <div class="auth-input-group">
+              <label class="auth-label" for="auth-email">Email Address</label>
+              <input type="email" id="auth-email" class="auth-input" placeholder="name@example.com">
+            </div>
+            <button class="btn" style="width:100%; margin-top: 10px;" onclick="sendLoginOTP()" id="send-otp-btn">Send
+              Secure Code</button>
+          </div>
+
+          <div id="auth-step-2" style="display:none;">
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 16px; text-align:center;">Enter the
+              6-digit code sent to your email.</p>
+            <div class="auth-input-group">
+              <label class="auth-label" for="auth-otp">Verification Code</label>
+              <input type="text" id="auth-otp" class="auth-input" placeholder="000000" maxlength="6"
+                style="letter-spacing:4px; text-align:center; font-size:1.2rem;">
+            </div>
+            <button class="btn" style="width:100%; margin-top:10px;" onclick="verifyLoginOTP()"
+              id="verify-otp-btn">Verify & Login</button>
+            <p style="margin-top: 16px; font-size: 0.88rem; text-align:center;"><a href="#" onclick="showAuthStep(1)"
+                style="color:var(--saffron); text-decoration:none; font-weight:600;">Change Email</a></p>
+          </div>
+        </div>
+
+        <!-- Sign Up View -->
+        <div id="auth-signup-view" style="display:none;">
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px; text-align:center;">Create your
+            customer profile for fast ordering.</p>
+
+          <form id="signup-form" onsubmit="handleSignup(event)">
+            <div class="form-row">
+              <div class="auth-input-group">
+                <label class="auth-label">Full Name *</label>
+                <input type="text" id="signup-name" class="auth-input" placeholder="e.g. Ramesh Kale" required>
+              </div>
+              <div class="auth-input-group">
+                <label class="auth-label">Mobile No. *</label>
+                <input type="tel" id="signup-mobile" class="auth-input" placeholder="10-digit Mobile"
+                  pattern="[0-9]{10}" required>
+              </div>
+            </div>
+
+            <div class="auth-input-group">
+              <label class="auth-label">Email Address *</label>
+              <input type="email" id="signup-email" class="auth-input" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-row">
+              <div class="auth-input-group">
+                <label class="auth-label">Building / House No. *</label>
+                <input type="text" id="signup-building" class="auth-input" placeholder="Flat 402, Sai Residency"
+                  required>
+              </div>
+              <div class="auth-input-group">
+                <label class="auth-label">Landmark</label>
+                <input type="text" id="signup-landmark" class="auth-input" placeholder="Near Temple / Park">
+              </div>
+            </div>
+
+            <div class="auth-input-group">
+              <label class="auth-label">Street Address / Location *</label>
+              <input type="text" id="signup-address" class="auth-input" placeholder="Road Name, Area Location" required>
+            </div>
+
+            <div class="form-row">
+              <div class="auth-input-group">
+                <label class="auth-label">City *</label>
+                <input type="text" id="signup-city" class="auth-input" placeholder="e.g. Pune" required>
+              </div>
+              <div class="auth-input-group">
+                <label class="auth-label">Pincode *</label>
+                <input type="text" id="signup-pincode" class="auth-input" placeholder="e.g. 411001" pattern="[0-9]{6}"
+                  required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn" style="width:100%; margin-top:10px;" id="signup-submit-btn">Create Account
+              & Save</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-glow-orb orb-1"></div>
+    <div class="hero-glow-orb orb-2"></div>
+    <div class="hero-glow-orb orb-3"></div>
+    <div class="hero-mandala-ring"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="hero-content gsap-fade-up">
+      <div class="hero-text">
+        <div class="hero-tagline"><i class="fa-solid fa-om" style="color:var(--gold)"></i> Traditional Maharashtrian
+          Diwali Sweets</div>
+        <h1>Celebrate Diwali with <br><span>Royal Flavours</span></h1>
+        <p>Experience the authentic taste of Maharashtra. Handcrafted festive delicacies made with pure Gir cow ghee,
+          premium saffron, roasted nuts, and generations of culinary mastery.</p>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+          <a href="#menu" class="btn">Explore Menu <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Trust Stats Bar -->
+        <div class="hero-stats-bar">
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+            <div class="stat-text">
+              <strong>4.9 ★ (1,500+)</strong>
+              <span>Verified Reviews</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-cow"></i></div>
+            <div class="stat-text">
+              <strong>100% Gir Cow Ghee</strong>
+              <span>Zero Preservatives</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="stat-text">
+              <strong>Express Shipping</strong>
+              <span>Pan India Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Horizontal Selector Accordion Hero Showcase -->
+      <div class="hero-selector-wrapper" id="hero-3d-showcase">
+        <div class="interactive-selector-container">
+
+          <!-- Panel 1: Besan Ladoo -->
+          <div class="selector-option active" style="background-image: url('balaji_ladoo_hero.png');"
+            onclick="handleHeroPanelClick(this, 'prod-2')">
+            <span class="selector-badge-tag"><i class="fa-solid fa-crown"></i> Bestseller</span>
+            <span class="selector-badge-price">₹150 / 250g</span>
+            <div class="selector-shadow"></div>
+            <div class="selector-click-hint"><i class="fa-solid fa-expand"></i> Click to View</div>
+            <div class="selector-label">
+              <div class="selector-icon"><i class="fa-solid fa-crown"></i></div>
+              <div class="selector-info">
+                <div class="main-title">Besan Ladoo</div>
+                <div class="sub-title">100% Pure Gir Cow Ghee & Almonds</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 2: Spicy Chivda -->
+          <div class="selector-option" style="background-image: url('chivda_new.png');"
+            onclick="handleHeroPanelClick(this, 'prod-1')">
+            <span class="selector-badge-tag"><i class="fa-solid fa-fire-flame-curved"></i> Crunchy</span>
+            <span class="selector-badge-price">₹100 / 200g</span>
+            <div class="selector-shadow"></div>
+            <div class="selector-click-hint"><i class="fa-solid fa-expand"></i> Click to View</div>
+            <div class="selector-label">
+              <div class="selector-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+              <div class="selector-info">
+                <div class="main-title">Spicy Chivda</div>
+                <div class="sub-title">Golden Poha & Roasted Cashews</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 3: Sweet Shankarpali -->
+          <div class="selector-option" style="background-image: url('shankarpali.jpg');"
+            onclick="handleHeroPanelClick(this, 'prod-3')">
+            <span class="selector-badge-tag"><i class="fa-solid fa-cookie-bite"></i> Traditional</span>
+            <span class="selector-badge-price">₹100 / 200g</span>
+            <div class="selector-shadow"></div>
+            <div class="selector-click-hint"><i class="fa-solid fa-expand"></i> Click to View</div>
+            <div class="selector-label">
+              <div class="selector-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+              <div class="selector-info">
+                <div class="main-title">Sweet Shankarpali</div>
+                <div class="sub-title">Flaky Diamond Pure Ghee Snacks</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 4: Royal Silk Gift Box -->
+          <div class="selector-option" style="background-image: url('gift_box_new.png');"
+            onclick="handleHeroPanelClick(this, 'prod-4')">
+            <span class="selector-badge-tag"><i class="fa-solid fa-gift"></i> Royal Hamper</span>
+            <span class="selector-badge-price">₹850 / Box</span>
+            <div class="selector-shadow"></div>
+            <div class="selector-click-hint"><i class="fa-solid fa-expand"></i> Click to View</div>
+            <div class="selector-label">
+              <div class="selector-icon"><i class="fa-solid fa-gift"></i></div>
+              <div class="selector-info">
+                <div class="main-title">Royal Silk Gift Box</div>
+                <div class="sub-title">Luxury Assorted Festive Faral Box</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 5: Bhajani Chakli -->
+          <div class="selector-option" style="background-image: url('balaji_royal_platter.png');"
+            onclick="handleHeroPanelClick(this, 'prod-5')">
+            <span class="selector-badge-tag"><i class="fa-solid fa-layer-group"></i> Grand Feast</span>
+            <span class="selector-badge-price">₹140 / 200g</span>
+            <div class="selector-shadow"></div>
+            <div class="selector-click-hint"><i class="fa-solid fa-expand"></i> Click to View</div>
+            <div class="selector-label">
+              <div class="selector-icon"><i class="fa-solid fa-layer-group"></i></div>
+              <div class="selector-info">
+                <div class="main-title">Bhajani Chakli</div>
+                <div class="sub-title">Crispy Multi-Grain Bhajani Chakli</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Immersive FeatureSteps Interactive Story Section -->
+  <section id="story" class="story-section">
+    <div class="story-interactive-container gsap-fade-up">
+
+      <div class="story-header-box">
+        <h2>The Heritage of Taste & Purity</h2>
+        <p>Experience 48 years of Maharashtrian culinary mastery step by step.</p>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- FeatureSteps Interactive Steps & Showcase -->
+      <div class="story-card-wrapper">
+
+        <!-- Step Progress Auto-Bar -->
+        <div class="story-progress-container">
+          <div id="story-progress-bar"></div>
+        </div>
+
+        <div id="story-feature-grid">
+
+          <!-- Steps List -->
+          <div class="story-steps-list">
+
+            <!-- Step 1 -->
+            <div class="feature-step-item active" id="feature-step-1978" onclick="switchStoryEra('1978')">
+              <div class="step-badge" id="step-badge-1978">✓</div>
+              <div class="step-text-wrap">
+                <h3 class="step-heading"><span class="step-year">1978</span><span class="step-title-full"> — Secret Family Recipes</span></h3>
+                <p class="step-desc">Handcrafted in pure A2 Gir Cow Ghee with grandmother's legacy recipes.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="feature-step-item" id="feature-step-1998" onclick="switchStoryEra('1998')">
+              <div class="step-badge" id="step-badge-1998">2</div>
+              <div class="step-text-wrap">
+                <h3 class="step-heading"><span class="step-year">1998</span><span class="step-title-full"> — Heavy Copper Roasting</span></h3>
+                <p class="step-desc">Slow roasting gram flour & nuts over wood flame for golden crunch.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="feature-step-item" id="feature-step-2026" onclick="switchStoryEra('2026')">
+              <div class="step-badge" id="step-badge-2026">3</div>
+              <div class="step-text-wrap">
+                <h3 class="step-heading"><span class="step-year">2026</span><span class="step-title-full"> — Royal Silk Hampers</span></h3>
+                <p class="step-desc">45-Day nitrogen freshness sealing & Pan-India express delivery.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Showcase Image Card -->
+          <div class="story-showcase-card" id="story-showcase-box">
+            <img id="story-image-element" src="balaji_story_heritage.png" alt="Balaji Foods Story Heritage" onerror="this.src='hero_new.png'">
+            <div class="story-showcase-overlay">
+              <span class="story-year-badge" id="story-badge-element">EST. 1978</span>
+              <h3 id="story-title-text">Hand-Crafted Sweets in Pure Gir Cow Ghee</h3>
+              <p id="story-desc-text">In 1978, our journey began in a humble family kitchen in Maharashtra. Equipped only with heavy copper vessel kadais, pure A2 Gir cow ghee, and recipes perfected over generations.</p>
+              <div id="story-quote-text">"A festival without the aroma of pure ghee besan ladoo is like a lamp without light."</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Products Menu Section -->
+  <section id="menu" class="menu-section">
+    <div class="section-header gsap-fade-up">
+      <h2>Our Festive Collection</h2>
+      <p>Hover over cards for spotlight glow & card lift effect • Click for full details</p>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="tabs gsap-fade-up">
+      <button class="tab-btn active" onclick="filterProducts('all', this)">All</button>
+      <button class="tab-btn" onclick="filterProducts('savory', this)">Savory</button>
+      <button class="tab-btn" onclick="filterProducts('sweet', this)">Sweet</button>
+      <button class="tab-btn" onclick="filterProducts('gift', this)">Gift Boxes</button>
+    </div>
+
+    <!-- Product Grid Container with 3D Tilt Cards -->
+    <div class="products-grid" id="products-container"></div>
+  </section>
+
+  <!-- Expanded Product Detail Showcase Overlay Modal -->
+  <div class="overlay" id="product-detail-overlay">
+    <div class="product-detail-modal" id="product-detail-content" data-lenis-prevent>
+      <button class="close-btn" style="position:absolute; top:18px; right:22px; color:var(--text-dark); z-index:20;"
+        onclick="closeProductDetail()"><i class="fa-solid fa-xmark"></i></button>
+
+      <!-- Left Image Showcase -->
+      <div class="detail-img-showcase">
+        <img id="detail-img" src="" alt="Product Image">
+        <div class="detail-purity-badge">
+          <i class="fa-solid fa-award"></i> Handcrafted in Pure Ghee
+        </div>
+      </div>
+
+      <!-- Right Detailed Info Body -->
+      <div class="detail-body">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <h2 class="detail-title" id="detail-title">Product Title</h2>
+          </div>
+          <p class="detail-subtitle" id="detail-subtitle">Authentic Faral Special</p>
+          <p class="detail-story" id="detail-story"></p>
+
+          <!-- Highlights Grid -->
+          <div class="detail-meta-grid">
+            <div class="meta-card">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span>Shelf Life</span>
+              <strong id="detail-shelflife">45 Days</strong>
+            </div>
+            <div class="meta-card">
+              <i class="fa-solid fa-cow"></i>
+              <span>Pure Ghee</span>
+              <strong id="detail-ghee">100% Pure</strong>
+            </div>
+            <div class="meta-card">
+              <i class="fa-solid fa-fire"></i>
+              <span>Energy</span>
+              <strong id="detail-energy">520 kcal</strong>
+            </div>
+          </div>
+
+          <!-- Ingredients List -->
+          <p style="font-size:0.85rem; font-weight:700; color:var(--text-dark); margin-bottom:8px;">Pure Ingredients:
+          </p>
+          <div class="ingredients-tags" id="detail-ingredients"></div>
+
+          <!-- Pack Size Selector -->
+          <div class="pack-selector">
+            <span class="pack-label">Select Pack Size:</span>
+            <div class="pack-options" id="detail-pack-options"></div>
+          </div>
+        </div>
+
+        <!-- Detail Action Footer -->
+        <div
+          style="border-top:1px solid #eee; padding-top:20px; display:flex; justify-content:space-between; align-items:center;">
+          <div class="detail-actions">
+            <div class="detail-qty">
+              <button onclick="adjustDetailQty(-1)">-</button>
+              <span id="detail-qty-val">1</span>
+              <button onclick="adjustDetailQty(1)">+</button>
+            </div>
+            <span id="detail-price-display" style="font-size:1.6rem; font-weight:800; color:var(--crimson);">₹0</span>
+          </div>
+
+          <button class="btn" onclick="addDetailToCart()" style="padding:14px 28px; font-size:1rem;">
+            <i class="fa-solid fa-basket-shopping"></i> Add to Cart
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials">
+    <div class="section-header gsap-fade-up">
+      <h2>Voices of Joy</h2>
+      <div class="section-divider" style="background:var(--gold);"></div>
+      <p style="margin-top:12px; opacity: 0.9; color: var(--gold-light);">Trusted by families across Maharashtra & India
+      </p>
+    </div>
+    <div class="test-grid gsap-fade-up">
+      <div class="test-card">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p>"The Chivda is perfectly spiced and the Besan Ladoo melts in the mouth! Reminds me of my grandmother's
+          cooking."</p>
+        <h4 style="margin-top: 16px; color: var(--gold-light); font-family: var(--font-body); font-weight:600;">- Ananya
+          S.</h4>
+      </div>
+      <div class="test-card">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p>"Ordered the Royal Gift Box for corporate gifting. The packaging was premium and the snacks were extremely
+          fresh."</p>
+        <h4 style="margin-top: 16px; color: var(--gold-light); font-family: var(--font-body); font-weight:600;">- Rahul
+          D.</h4>
+      </div>
+      <div class="test-card">
+        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p>"First time ordering online for Diwali faral and I am not disappointed. Shankarpali had the perfect crunch."
+        </p>
+        <h4 style="margin-top: 16px; color: var(--gold-light); font-family: var(--font-body); font-weight:600;">- Priya
+          M.</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo"><i class="fa-solid fa-om"></i> Balaji Foods</div>
+    <p style="color: rgba(255,255,255,0.8);">Authentic Recipes. Pure Ingredients. Made with Ghee.</p>
+    <div style="margin: 24px 0; font-size: 1.6rem; display: flex; justify-content: center; gap: 20px;">
+      <a href="#" style="color:var(--gold);"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" style="color:var(--gold);"><i class="fa-brands fa-facebook"></i></a>
+      <a href="#" style="color:var(--gold);"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+    <p style="font-size: 0.85rem; opacity: 0.7;">© 2026 Balaji Foods. All rights reserved.</p>
+  </footer>
+
+  <!-- Cart Drawer Overlay -->
+  <div class="overlay" id="cart-overlay">
+    <div class="side-panel" data-lenis-prevent>
+      <div class="panel-header">
+        <h2>Your Festive Cart</h2>
+        <button class="close-btn" onclick="closeCart()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="cart-items" id="cart-items-container">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total Amount:</span>
+          <span id="cart-total-price" style="color:var(--crimson);">₹0</span>
+        </div>
+
+        <div id="delivery-form">
+          <label
+            style="font-size:0.85rem; font-weight:600; color:var(--text-dark); display:block; margin-bottom:4px;">Recipient
+            Name *</label>
+          <input type="text" id="cust-name" placeholder="Full Name" required>
+          <label
+            style="font-size:0.85rem; font-weight:600; color:var(--text-dark); display:block; margin-bottom:4px;">Delivery
+            Address *</label>
+          <textarea id="cust-address" rows="3"
+            placeholder="Complete Delivery Address (Building No, Street, Landmark, City, Pincode)" required></textarea>
+
+          <label
+            style="font-size:0.82rem; font-weight:600; color:var(--crimson); display:flex; align-items:center; gap:6px; margin: 10px 0 4px;">
+            <i class="fa-solid fa-comment-dots"></i> Special Instructions / Request (Optional)
+          </label>
+          <textarea id="cust-special-request" rows="2"
+            placeholder="e.g. Less sweet, extra gift wrapping, delivery note..."></textarea>
+          <div style="display:flex; gap:6px; margin-top:6px; margin-bottom:8px; flex-wrap:wrap;">
+            <span onclick="appendSpecialReqTag('🎁 Festive Gift Wrapping')" style="background:rgba(227,115,64,0.1); border:1px solid rgba(212,175,55,0.4); padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; color:var(--crimson); cursor:pointer;">🎁 Gift Wrap</span>
+            <span onclick="appendSpecialReqTag('🍬 Less Sweet')" style="background:rgba(227,115,64,0.1); border:1px solid rgba(212,175,55,0.4); padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; color:var(--crimson); cursor:pointer;">🍬 Less Sweet</span>
+            <span onclick="appendSpecialReqTag('🌶️ Extra Crisp')" style="background:rgba(227,115,64,0.1); border:1px solid rgba(212,175,55,0.4); padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; color:var(--crimson); cursor:pointer;">🌶️ Extra Crisp</span>
+            <span onclick="appendSpecialReqTag('📞 Call Before Delivery')" style="background:rgba(227,115,64,0.1); border:1px solid rgba(212,175,55,0.4); padding:4px 10px; border-radius:12px; font-size:0.75rem; font-weight:600; color:var(--crimson); cursor:pointer;">📞 Call First</span>
+          </div>
+
+          <label
+            style="font-size:0.85rem; font-weight:700; color:var(--text-dark); display:block; margin: 12px 0 6px;">Select
+            Payment Option *</label>
+          <div style="display:flex; gap:10px; margin-bottom:14px;">
+            <label
+              style="flex:1; border:2px solid var(--saffron); border-radius:12px; padding:10px; cursor:pointer; background:rgba(227,115,64,0.08); display:flex; align-items:center; gap:8px; font-size:0.8rem; font-weight:600;"
+              id="pay-opt-online-label">
+              <input type="radio" name="pay-method-radio" id="pay-method-online" value="ONLINE" checked
+                onchange="togglePayMethodStyle()">
+              <i class="fa-solid fa-credit-card" style="color:var(--saffron);"></i> Online (Razorpay / UPI / Cards)
+            </label>
+            <label
+              style="flex:1; border:1px solid #ccc; border-radius:12px; padding:10px; cursor:pointer; background:#fff; display:flex; align-items:center; gap:8px; font-size:0.8rem; font-weight:600;"
+              id="pay-opt-cod-label">
+              <input type="radio" name="pay-method-radio" id="pay-method-cod" value="COD"
+                onchange="togglePayMethodStyle()">
+              <i class="fa-solid fa-hand-holding-dollar" style="color:var(--crimson);"></i> Cash on Delivery
+            </label>
+          </div>
+        </div>
+
+        <button class="btn" style="width:100%; margin-bottom: 10px;" id="checkout-start-btn"
+          onclick="showCheckoutOptions()">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Track Order Overlay -->
+  <div class="overlay" id="track-overlay">
+    <div class="modal-center" data-lenis-prevent>
+      <button class="close-btn" style="position:absolute; top:16px; right:20px; color:var(--text-dark);"
+        onclick="closeTrackModal()"><i class="fa-solid fa-xmark"></i></button>
+      <h2 style="margin-bottom: 6px;">Track Your Order</h2>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Enter your Order ID to check live
+        status.</p>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <input type="text" id="track-id-input" class="auth-input" placeholder="Order ID (e.g. BF-9824)">
+        <button class="btn" onclick="trackOrder()" style="padding: 10px 22px;">Track</button>
+      </div>
+
+      <div class="track-results" id="track-results" style="display:none;">
+        <p style="font-size: 0.92rem; color: var(--crimson); font-weight:700;" id="track-order-id-display">Order ID:
+          #BF-9824</p>
+
+        <div class="stepper">
+          <div class="step" id="step-1">
+            <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+            <div class="step-label">Placed</div>
+          </div>
+          <div class="step" id="step-2">
+            <div class="step-icon"><i class="fa-solid fa-fire-burner"></i></div>
+            <div class="step-label">Preparing</div>
+          </div>
+          <div class="step" id="step-3">
+            <div class="step-icon"><i class="fa-solid fa-truck"></i></div>
+            <div class="step-label">Dispatched</div>
+          </div>
+        </div>
+
+        <div
+          style="margin-top: 30px; padding: 16px; background: rgba(227,115,64,0.1); border-radius: 14px; font-size:0.92rem; text-align:left;">
+          <strong>Status:</strong> <span id="track-status-text">Your order is being prepared!</span><br>
+          <strong>Est. Delivery:</strong> <span id="track-eta-text">1-2 Business Days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Modal Overlay -->
+  <div class="overlay" id="receipt-overlay">
+    <div class="receipt-modal" data-lenis-prevent>
+      <button class="close-btn" style="position:absolute; top:14px; right:18px; color:var(--text-dark);"
+        onclick="closeReceipt()"><i class="fa-solid fa-xmark"></i></button>
+      <div class="receipt-header">
+        <i class="fa-solid fa-circle-check" style="color: #25D366; font-size: 2.8rem; margin-bottom: 10px;"></i>
+        <h2>Order Receipt</h2>
+        <p style="font-size: 0.8rem; color: #777;" id="receipt-date"></p>
+      </div>
+      <div class="receipt-details">
+        <strong>Name:</strong> <span id="r-name"></span><br>
+        <strong>Address:</strong> <span id="r-addr"></span><br>
+        <strong>Payment Status:</strong> <span id="r-mode">Confirmed</span>
+        <div id="r-special-box" style="display:none; margin-top:8px; padding:8px 12px; background:#fdf8f4; border:1px solid #eedec0; border-radius:10px; font-size:0.83rem;">
+          <strong style="color:var(--crimson);"><i class="fa-solid fa-comment-dots"></i> Special Request:</strong> <span id="r-special-text"></span>
+        </div>
+        <div id="r-verification-note" style="display:none; margin-top:8px; padding:8px 12px; background:#fff8e7; border:1px solid #f0c36d; border-radius:10px; font-size:0.82rem; color:#8a5300;">
+          <i class="fa-solid fa-clock-rotate-left"></i> <strong>Pending Verification:</strong> Your UTR reference was submitted. Balaji Foods owner will verify bank receipt before dispatch.
+        </div>
+      </div>
+      <div class="receipt-items" id="r-items"></div>
+      <div class="receipt-total">
+        <span>Total Paid:</span>
+        <span id="r-total"></span>
+      </div>
+      <button class="btn" style="width: 100%; margin-bottom: 12px;" onclick="downloadPDFReceipt()"><i
+          class="fa-solid fa-file-pdf"></i> Download PDF Receipt</button>
+      <button class="btn" style="width: 100%; background: #25D366; box-shadow: 0 4px 15px rgba(37,211,102,0.3);"
+        onclick="sendWhatsAppOrder()"><i class="fa-brands fa-whatsapp"></i> Confirm via WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- Dynamic UPI QR Payment Modal Overlay -->
+  <div class="overlay" id="upi-qr-overlay">
+    <div class="modal-center" style="max-width:480px; text-align:center; padding:28px 24px;" data-lenis-prevent>
+      <button class="close-btn" style="position:absolute; top:16px; right:20px; color:var(--text-dark);"
+        onclick="closeUpiQrModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div
+        style="display:inline-flex; align-items:center; gap:8px; background:rgba(227,115,64,0.1); border:1px solid var(--gold); padding:6px 16px; border-radius:20px; font-size:0.82rem; font-weight:700; color:var(--crimson); margin-bottom:12px;">
+        <i class="fa-solid fa-qrcode" style="color:var(--saffron);"></i> Scan & Pay via Any UPI App
+      </div>
+
+      <h2 style="font-size:1.6rem; color:var(--crimson); margin-bottom:4px; font-family:var(--font-heading);">Online
+        Payment QR Code</h2>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">Order ID: <strong id="upi-qr-order-id"
+          style="color:var(--crimson);">#BF-1001</strong></p>
+
+      <!-- Total Amount Box -->
+      <div
+        style="background:#fdf8f4; border:1px solid var(--gold); border-radius:16px; padding:12px; margin-bottom:18px;">
+        <span style="font-size:0.85rem; color:#777; display:block;">Total Amount to Pay:</span>
+        <strong id="upi-qr-amount" style="font-size:2rem; color:var(--crimson); font-weight:800;">₹0</strong>
+      </div>
+
+      <!-- Dynamic QR Code Container with Frame -->
+      <div
+        style="position:relative; width:220px; height:220px; margin:0 auto 16px; padding:10px; background:white; border-radius:20px; border:2px solid var(--gold); box-shadow:0 10px 30px rgba(138,28,20,0.15); display:flex; align-items:center; justify-content:center;">
+        <img id="upi-qr-img" src="" alt="UPI Payment QR Code"
+          style="width:100%; height:100%; border-radius:12px; object-fit:contain;">
+      </div>
+
+      <!-- Supported App Badges -->
+      <div
+        style="display:flex; justify-content:center; gap:10px; align-items:center; margin-bottom:16px; font-size:0.78rem; color:#666; flex-wrap:wrap;">
+        <span style="background:#fff; border:1px solid #ddd; padding:4px 10px; border-radius:12px; font-weight:600;"><i
+            class="fa-brands fa-google-pay" style="color:#4285F4;"></i> GPay</span>
+        <span style="background:#fff; border:1px solid #ddd; padding:4px 10px; border-radius:12px; font-weight:600;"><i
+            class="fa-solid fa-mobile-screen-button" style="color:#5f259f;"></i> PhonePe</span>
+        <span style="background:#fff; border:1px solid #ddd; padding:4px 10px; border-radius:12px; font-weight:600;"><i
+            class="fa-solid fa-wallet" style="color:#00b9f0;"></i> Paytm</span>
+        <span style="background:#fff; border:1px solid #ddd; padding:4px 10px; border-radius:12px; font-weight:600;"><i
+            class="fa-solid fa-building-columns" style="color:#e37340;"></i> BHIM / UPI</span>
+      </div>
+
+      <!-- UPI ID Copy Box -->
+      <div
+        style="background:#f5f5f5; border:1px dashed #ccc; border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <div style="text-align:left;">
+          <span style="font-size:0.75rem; color:#777; display:block;">Owner UPI ID:</span>
+          <strong id="upi-vpa-display" style="font-size:0.9rem; color:var(--text-dark);">9284911237@ybl</strong>
+        </div>
+        <button class="btn-outline" style="padding:5px 12px; font-size:0.78rem;" onclick="copyUpiVpa()"><i
+            class="fa-regular fa-copy"></i> Copy UPI ID</button>
+      </div>
+
+      <!-- Informative UPI Text Guidance (Button Removed) -->
+      <div
+        style="font-size:0.86rem; color:var(--text-muted); background:#fdf8f4; border:1px solid var(--gold); padding:12px; border-radius:14px; margin-bottom:14px; text-align:center;">
+        <i class="fa-solid fa-mobile-screen-button" style="color:var(--saffron);"></i> Pay directly via any UPI app
+        (GPay, PhonePe, Paytm, BHIM) by scanning the QR code or using the copied UPI ID above.
+      </div>
+
+      <!-- UTR Input & Confirmation -->
+      <div style="margin-top:14px; text-align:left;">
+        <label
+          style="font-size:0.82rem; font-weight:600; color:var(--text-dark); display:block; margin-bottom:4px;">12-digit
+          UPI Reference / UTR No. (Optional)</label>
+        <input type="text" id="upi-utr-input" class="auth-input" placeholder="e.g. 426819238491"
+          style="font-size:0.88rem; padding:9px 12px; margin-bottom:12px;">
+      </div>
+
+      <button class="btn" style="width:100%; font-size:0.95rem; padding:12px;" onclick="confirmUpiQrPayment()">
+        <i class="fa-solid fa-circle-check"></i> I Have Completed Payment
+      </button>
+    </div>
+  </div>
+
+  <!-- My Orders History Overlay -->
+  <div class="overlay" id="my-orders-overlay">
+    <div class="modal-center" style="max-width:720px; width:94%; max-height:90vh; overflow-y:auto;" data-lenis-prevent>
+      <button class="close-btn" style="position:absolute; top:18px; right:22px; color:var(--text-dark);"
+        onclick="closeMyOrders()"><i class="fa-solid fa-xmark"></i></button>
+
+      <h2 style="font-family:var(--font-heading); color:var(--crimson); margin-bottom:4px;"><i
+          class="fa-solid fa-box-archive" style="color:var(--gold)"></i> Your Orders History</h2>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:20px;">Track past orders, view invoices, and
+        reorder your favorite Diwali sweets.</p>
+
+      <div id="my-orders-container">
+        <p style="text-align:center; padding:30px; color:#888;">Loading your order history...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Libraries -->
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <!-- Vanta.js Fog Effect -->
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // --- State & Rich Product Dataset ---
+    const DEFAULT_PRODUCTS = [
+      {
+        _id: 'prod-1',
+        title: 'Spicy Chivda',
+        desc: 'Crunchy, spicy Maharashtrian chivda roasted to golden perfection.',
+        price: 120,
+        img: 'chivda_new.png',
+        category: 'savory',
+        fallback: 'chivda.jpg',
+        unit: '250g',
+        shelfLife: '45 Days',
+        gheePercent: 'Pure Groundnut Oil & Ghee',
+        energy: '480 kcal',
+        story: 'Prepared using traditional thin flattened rice (pohe), roasted peanuts, fried curry leaves, and secret Maharashtrian spices. Perfect for high tea and festive munching.',
+        ingredients: ['Poha (Flattened Rice)', 'Peanuts', 'Cashews', 'Curry Leaves', 'Green Chillies', 'Turmeric', 'Pure Spices'],
+        packSizes: [
+          { unit: '250g', price: 120 },
+          { unit: '500g', price: 230 },
+          { unit: '1kg', price: 440 }
+        ]
+      },
+      {
+        _id: 'prod-2',
+        title: 'Besan Ladoo',
+        desc: 'Sweet, aromatic, pure ghee roasted besan ladoo topped with almonds.',
+        price: 150,
+        img: 'ladoo.jpg',
+        category: 'sweet',
+        fallback: 'ladoo.jpg',
+        unit: '6 pcs',
+        shelfLife: '30 Days',
+        gheePercent: '100% Pure Gir Cow Ghee',
+        energy: '530 kcal',
+        story: 'Slow roasted gram flour in pure golden ghee until aromatic, rolled gently with cardamom and roasted nuts. Guaranteed melt-in-the-mouth texture.',
+        ingredients: ['Pure Cow Ghee', 'Gram Flour (Besan)', 'Pure Sugar', 'Cardamom Powder', 'Almonds', 'Pistachios'],
+        packSizes: [
+          { unit: '6 pcs (250g)', price: 150 },
+          { unit: '12 pcs (500g)', price: 290 },
+          { unit: '24 pcs (1kg)', price: 560 }
+        ]
+      },
+      {
+        _id: 'prod-3',
+        title: 'Shankarpali',
+        desc: 'Golden bites of joy, crispy & sweet traditional diamond snacks.',
+        price: 100,
+        img: 'shankarpali.jpg',
+        category: 'sweet',
+        fallback: 'shankarpali.jpg',
+        unit: '200g',
+        shelfLife: '60 Days',
+        gheePercent: 'Pure Ghee Fry',
+        energy: '490 kcal',
+        story: 'Crispy flaky diamond-cut delights made with refined flour, milk, and pure ghee. Softly sweet and delightfully crunchy with every single bite.',
+        ingredients: ['Wheat Flour', 'Pure Ghee', 'Milk', 'Sugar', 'Cardamom'],
+        packSizes: [
+          { unit: '200g', price: 100 },
+          { unit: '500g', price: 240 },
+          { unit: '1kg', price: 460 }
+        ]
+      },
+      {
+        _id: 'prod-4',
+        title: 'Royal Gift Box',
+        desc: 'Assorted premium faral packed elegantly in a silk festival box.',
+        price: 850,
+        img: 'gift_box_new.png',
+        category: 'gift',
+        fallback: 'faral.jpg',
+        unit: '1 Box (1.2kg)',
+        shelfLife: '35 Days',
+        gheePercent: '100% Premium Ghee',
+        energy: '540 kcal',
+        story: 'The ultimate royal Diwali hamper containing Besan Ladoo, Spicy Chivda, Bhajani Chakli, Shankarpali, and Dry Fruit Karanji in a velvet silk box.',
+        ingredients: ['Besan Ladoo', 'Bhajani Chakli', 'Spicy Chivda', 'Dry Fruit Karanji', 'Shankarpali', 'Almonds & Cashews'],
+        packSizes: [
+          { unit: '1 Box (1.2kg)', price: 850 },
+          { unit: 'Deluxe Twin Box (2.5kg)', price: 1650 }
+        ]
+      },
+      {
+        _id: 'prod-5',
+        title: 'Bhajani Chakli',
+        desc: 'Crispy authentic spiked chakli made with roasted multi-grain flour.',
+        price: 140,
+        img: 'faral.jpg',
+        category: 'savory',
+        fallback: 'faral.jpg',
+        unit: '200g',
+        shelfLife: '45 Days',
+        gheePercent: 'Pure Spiced Ghee',
+        energy: '470 kcal',
+        story: 'Hand-pressed spiral chaklis made from traditional multi-grain bhajani flour (rice, chana dal, urad dal, coriander seeds) fried to crisp perfection.',
+        ingredients: ['Bhajani Flour Mix', 'Sesame Seeds', 'Ajwain', 'Red Chilli Powder', 'Pure Ghee Mohan', 'Rock Salt'],
+        packSizes: [
+          { unit: '200g', price: 140 },
+          { unit: '500g', price: 320 },
+          { unit: '1kg', price: 620 }
+        ]
+      },
+      {
+        _id: 'prod-6',
+        title: 'Chocolate Delights',
+        desc: 'Rich sweet chocolate treats crafted specially for Diwali celebrations.',
+        price: 5,
+        img: 'Chocolate.jpg',
+        category: 'sweet',
+        fallback: 'Chocolate.jpg',
+        unit: '1 pc',
+        shelfLife: '90 Days',
+        gheePercent: 'Rich Cocoa & Milk',
+        energy: '120 kcal',
+        story: 'Artisanal cocoa chocolate bites filled with crunchy nuts and festive love. Loved by kids and adults alike.',
+        ingredients: ['Cocoa Mass', 'Milk Solids', 'Roasted Almonds', 'Sugar', 'Natural Vanilla'],
+        packSizes: [
+          { unit: '1 pc', price: 5 },
+          { unit: 'Pack of 12 pcs', price: 55 },
+          { unit: 'Festive Box (24 pcs)', price: 110 }
+        ]
+      }
+    ];
+
+    const API_URL = (window.location.protocol.startsWith('http') && window.location.port !== '5000' && !window.location.hostname.includes('5173') && !window.location.hostname.includes('3000'))
+      ? `${window.location.origin}/api`
+      : 'http://localhost:5000/api';
+
+    let products = [];
+    let cart = [];
+    let currentUser = JSON.parse(localStorage.getItem('user')) || null;
+    let token = localStorage.getItem('token') || null;
+    let currentDetailProduct = null;
+    let currentDetailPack = null;
+    let currentDetailQty = 1;
+    const whatsappNum = "919284911237";
+
+    // --- Toast Notification ---
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      const icon = type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-info');
+      toast.innerHTML = `<i class="fa-solid ${icon}"></i> ${message}`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3200);
+    }
+
+    // --- Modal Body Scroll Lock Helper ---
+    function toggleModalScrollLock(isOpen) {
+      setTimeout(() => {
+        const activeOverlays = document.querySelectorAll('.overlay.active');
+        if (isOpen || activeOverlays.length > 0) {
+          document.body.style.overflow = 'hidden';
+          if (window.lenis) { try { window.lenis.stop(); } catch (e) { } }
+        } else {
+          document.body.style.overflow = '';
+          if (window.lenis) { try { window.lenis.start(); } catch (e) { } }
+        }
+      }, 10);
+    }
+
+    // --- Auth Logic ---
+    function openLogin() {
+      document.getElementById('login-overlay').classList.add('active');
+      toggleModalScrollLock(true);
+      if (currentUser) { showAuthView('user-info'); } else { switchAuthTab('login'); }
+    }
+
+    function closeLogin() {
+      document.getElementById('login-overlay').classList.remove('active');
+      toggleModalScrollLock(false);
+    }
+
+    function switchAuthTab(tab) {
+      document.getElementById('auth-user-info').style.display = 'none';
+      document.getElementById('auth-forms-container').style.display = 'block';
+
+      const loginBtn = document.getElementById('tab-btn-login');
+      const signupBtn = document.getElementById('tab-btn-signup');
+      const loginView = document.getElementById('auth-login-view');
+      const signupView = document.getElementById('auth-signup-view');
+
+      if (tab === 'login') {
+        loginBtn.classList.add('active'); signupBtn.classList.remove('active');
+        loginView.style.display = 'block'; signupView.style.display = 'none';
+        showAuthStep(1);
+      } else {
+        signupBtn.classList.add('active'); loginBtn.classList.remove('active');
+        signupView.style.display = 'block'; loginView.style.display = 'none';
+      }
+    }
+
+    function showAuthView(view) {
+      if (view === 'user-info') {
+        document.getElementById('auth-forms-container').style.display = 'none';
+        document.getElementById('auth-user-info').style.display = 'block';
+
+        if (currentUser) {
+          document.getElementById('user-display-name').textContent = currentUser.name || currentUser.email.split('@')[0];
+          document.getElementById('user-display-email').textContent = `Email: ${currentUser.email}`;
+          document.getElementById('user-display-mobile').textContent = currentUser.mobile ? `Mobile: ${currentUser.mobile}` : '';
+
+          const fullAddr = [currentUser.building, currentUser.address, currentUser.landmark, currentUser.city, currentUser.pincode]
+            .filter(Boolean).join(', ');
+
+          document.getElementById('user-display-address').textContent = fullAddr || currentUser.address || 'No address saved yet.';
+
+          document.getElementById('cust-name').value = currentUser.name || '';
+          document.getElementById('cust-address').value = fullAddr || currentUser.address || '';
+        }
+      }
+    }
+
+    function showAuthStep(step) {
+      document.getElementById('auth-step-1').style.display = step === 1 ? 'block' : 'none';
+      document.getElementById('auth-step-2').style.display = step === 2 ? 'block' : 'none';
+    }
+
+    async function sendLoginOTP() {
+      const email = document.getElementById('auth-email').value.trim();
+      if (!email) return showToast('Please enter a valid email address', 'error');
+
+      const btn = document.getElementById('send-otp-btn');
+      btn.disabled = true; btn.textContent = 'Sending OTP...';
+
+      try {
+        const res = await fetch(`${API_URL}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        showToast(data.message || 'Verification OTP code sent!');
+        showAuthStep(2);
+      } catch (err) {
+        showToast('OTP sent to email (Demo mode Code: 123456)', 'info');
+        showAuthStep(2);
+      } finally {
+        btn.disabled = false; btn.textContent = 'Send Secure Code';
+      }
+    }
+
+    async function verifyLoginOTP() {
+      const email = document.getElementById('auth-email').value.trim();
+      const otp = document.getElementById('auth-otp').value.trim();
+      if (!otp) return showToast('Please enter the 6-digit OTP', 'error');
+
+      const btn = document.getElementById('verify-otp-btn');
+      btn.disabled = true; btn.textContent = 'Verifying...';
+
+      try {
+        const res = await fetch(`${API_URL}/auth/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp })
+        });
+        const data = await res.json();
+        if (res.ok && data.user) {
+          currentUser = data.user; token = data.token;
+        } else {
+          currentUser = { email, name: email.split('@')[0], address: '' };
+        }
+      } catch (err) {
+        currentUser = { email, name: email.split('@')[0], address: '' };
+      } finally {
+        btn.disabled = false; btn.textContent = 'Verify & Login';
+        localStorage.setItem('user', JSON.stringify(currentUser));
+        showToast('Welcome back to Balaji Foods!', 'success');
+        updateAuthUI();
+        showAuthView('user-info');
+      }
+    }
+
+    async function handleSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('signup-name').value.trim();
+      const mobile = document.getElementById('signup-mobile').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const building = document.getElementById('signup-building').value.trim();
+      const address = document.getElementById('signup-address').value.trim();
+      const landmark = document.getElementById('signup-landmark').value.trim();
+      const city = document.getElementById('signup-city').value.trim();
+      const pincode = document.getElementById('signup-pincode').value.trim();
+
+      if (!name || !mobile || !email || !building || !address || !city || !pincode) {
+        return showToast('Please fill all required fields', 'error');
+      }
+
+      const submitBtn = document.getElementById('signup-submit-btn');
+      submitBtn.disabled = true; submitBtn.textContent = 'Saving Profile...';
+
+      const fullAddressStr = `${building}, ${address}${landmark ? ', Near ' + landmark : ''}, ${city} - ${pincode}`;
+      const userData = { email, name, mobile, building, address, landmark, city, pincode, fullAddress: fullAddressStr };
+
+      try {
+        const res = await fetch(`${API_URL}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData)
+        });
+        const data = await res.json();
+        if (res.ok && data.user) { currentUser = data.user; token = data.token; } else { currentUser = userData; }
+      } catch (err) {
+        currentUser = userData;
+      } finally {
+        submitBtn.disabled = false; submitBtn.textContent = 'Create Account & Save';
+        localStorage.setItem('user', JSON.stringify(currentUser));
+
+        document.getElementById('cust-name').value = name;
+        document.getElementById('cust-address').value = fullAddressStr;
+
+        showToast(`Account created successfully! Namaste ${name}`, 'success');
+        updateAuthUI();
+        showAuthView('user-info');
+      }
+    }
+
+    function userLogout() {
+      currentUser = null; token = null;
+      localStorage.removeItem('user'); localStorage.removeItem('token');
+      showToast('Logged out successfully');
+      updateAuthUI();
+      switchAuthTab('login');
+    }
+
+    function updateAuthUI() {
+      const btn = document.getElementById('nav-login-btn');
+      if (currentUser) {
+        btn.innerHTML = '<i class="fa-solid fa-user-check" style="color:var(--gold)"></i>';
+        btn.style.borderColor = 'var(--gold)';
+        btn.style.background = 'rgba(212, 175, 55, 0.15)';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-user"></i>';
+        btn.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+        btn.style.background = 'rgba(227, 115, 64, 0.08)';
+      }
+    }
+
+    // --- Products API & 3D Tilt Card Renderer ---
+    async function fetchProducts() {
+      const container = document.getElementById('products-container');
+      container.innerHTML = '<div class="skeleton"></div>'.repeat(3);
+
+      try {
+        const res = await fetch(`${API_URL}/products`);
+        if (res.ok) {
+          const data = await res.json();
+          products = (data && data.length > 0) ? data : DEFAULT_PRODUCTS;
+        } else {
+          products = DEFAULT_PRODUCTS;
+        }
+      } catch (err) {
+        products = DEFAULT_PRODUCTS;
+      } finally {
+        renderProducts('all');
+      }
+    }
+
+    function renderProducts(filter = 'all') {
+      const container = document.getElementById('products-container');
+      container.innerHTML = '';
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding:40px; color:#777;">No products available in this category.</p>';
+        return;
+      }
+
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card gsap-product';
+        card.setAttribute('data-id', p._id);
+        card.setAttribute('onclick', `openProductDetail('${p._id}')`);
+        const tagText = p.category === 'gift' ? 'Diwali Gift' : (p.category === 'sweet' ? 'Pure Ghee' : 'Crunchy Special');
+
+        card.innerHTML = `
+          <div class="card-shine"></div>
+          <div class="product-img-wrapper">
+            <img src="${p.img}" alt="${p.title}" class="product-img" onerror="this.src='${p.fallback || 'faral.jpg'}'" loading="lazy">
+            <span class="product-tag">${tagText}</span>
+            <span class="view-info-hint"><i class="fa-solid fa-expand"></i> Click for Info</span>
+          </div>
+          <div class="product-info">
+            <div class="product-title">${p.title}</div>
+            <p class="product-desc">${p.desc}</p>
+            <div class="product-bottom">
+              <span class="product-price">₹${p.price} <span style="font-size:0.8rem;color:#777;font-weight:normal">/ ${p.unit}</span></span>
+              <button class="btn add-to-cart-btn" onclick="event.stopPropagation(); addToCart('${p._id}')"><i class="fa-solid fa-cart-plus"></i> Add</button>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      attach3DTiltEffects();
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+
+    // --- Interactive Hero Accordion Panel Handler ---
+    function handleHeroPanelClick(element, productId) {
+      const container = element.parentElement;
+      const isAlreadyActive = element.classList.contains('active');
+
+      container.querySelectorAll('.selector-option').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+
+      if (window.innerWidth <= 768) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+
+      if (isAlreadyActive && typeof openProductDetail === 'function') {
+        openProductDetail(productId);
+      }
+    }
+
+    // --- Story Era Switcher ---
+    const STORY_DATA = {
+      '1978': {
+        badge: 'EST. 1978',
+        img: 'balaji_story_heritage.png',
+        title: 'Hand-Crafted Sweets in Pure Gir Cow Ghee',
+        desc: 'In 1978, our journey began in a humble family kitchen in Maharashtra. Equipped with heavy copper kadais, pure A2 Gir cow ghee, and recipes perfected over generations.',
+        progress: '33%'
+      },
+      '1998': {
+        badge: 'MILESTONE 1998',
+        img: 'chivda_new.png',
+        title: 'Heavy Copper Flame Roasting Technique',
+        desc: 'Slow roasting gram flour & flattened rice over wood flames for golden crunch and unmatchable traditional Maharashtrian aroma.',
+        progress: '66%'
+      },
+      '2026': {
+        badge: 'TODAY 2026',
+        img: 'gift_box_new.png',
+        title: 'Royal Silk Hampers & Express Delivery',
+        desc: '45-Day freshness sealing & nationwide express shipping ensuring every box of Faral reaches your doorstep pure and oven-fresh.',
+        progress: '100%'
+      }
+    };
+
+    function switchStoryEra(era) {
+      const data = STORY_DATA[era];
+      if (!data) return;
+
+      document.querySelectorAll('.feature-step-item').forEach(item => {
+        item.classList.remove('active');
+        item.style.background = '#fff';
+        item.style.borderColor = '#eee';
+      });
+
+      const activeItem = document.getElementById(`feature-step-${era}`);
+      if (activeItem) {
+        activeItem.classList.add('active');
+        activeItem.style.background = 'rgba(227,115,64,0.06)';
+        activeItem.style.borderColor = 'rgba(227,115,64,0.2)';
+      }
+
+      const imgEl = document.getElementById('story-image-element');
+      const badgeEl = document.getElementById('story-badge-element');
+      const titleEl = document.getElementById('story-title-text');
+      const descEl = document.getElementById('story-desc-text');
+      const progressEl = document.getElementById('story-progress-bar');
+
+      if (imgEl) imgEl.src = data.img;
+      if (badgeEl) badgeEl.textContent = data.badge;
+      if (titleEl) titleEl.textContent = data.title;
+      if (descEl) descEl.textContent = data.desc;
+      if (progressEl) progressEl.style.width = data.progress;
+    }
+
+    // --- Spotlight Glow & Card Lift Pointer Engine ---
+    function attach3DTiltEffects() {
+      document.querySelectorAll('.product-card').forEach(card => {
+        const shine = card.querySelector('.card-shine');
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          card.style.setProperty('--x', `${x.toFixed(1)}px`);
+          card.style.setProperty('--y', `${y.toFixed(1)}px`);
+
+          if (shine) {
+            shine.style.opacity = '1';
+            shine.style.background = `radial-gradient(240px circle at ${x}px ${y}px, rgba(212, 175, 55, 0.2) 0%, rgba(227, 115, 64, 0.08) 50%, transparent 80%)`;
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          if (shine) shine.style.opacity = '0';
+        });
+      });
+    }
+
+    function filterProducts(category, btnElement) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+      renderProducts(category);
+    }
+
+    // --- Product Detail Showcase Modal Logic ---
+    function openProductDetail(id) {
+      const p = products.find(prod => prod._id === id);
+      if (!p) return;
+
+      currentDetailProduct = p;
+      currentDetailQty = 1;
+
+      const defaultPacks = p.packSizes || [{ unit: p.unit, price: p.price }];
+      currentDetailPack = defaultPacks[0];
+
+      document.getElementById('detail-img').src = p.img;
+      document.getElementById('detail-img').onerror = function () { this.src = p.fallback || 'faral.jpg'; };
+      document.getElementById('detail-title').textContent = p.title;
+      document.getElementById('detail-subtitle').textContent = `Category: ${p.category.toUpperCase()} • Pure Ghee Recipe`;
+      document.getElementById('detail-story').textContent = p.story || p.desc;
+      document.getElementById('detail-shelflife').textContent = p.shelfLife || '45 Days';
+      document.getElementById('detail-ghee').textContent = p.gheePercent || '100% Pure';
+      document.getElementById('detail-energy').textContent = p.energy || '500 kcal';
+      document.getElementById('detail-qty-val').textContent = currentDetailQty;
+
+      // Render Ingredients Chips
+      const ingContainer = document.getElementById('detail-ingredients');
+      ingContainer.innerHTML = '';
+      const ings = p.ingredients || ['Pure Desi Ghee', 'Special Spices', 'High Quality Grains'];
+      ings.forEach(ing => {
+        const chip = document.createElement('span');
+        chip.className = 'ingredient-chip';
+        chip.innerHTML = `<i class="fa-solid fa-seedling"></i> ${ing}`;
+        ingContainer.appendChild(chip);
+      });
+
+      // Render Pack Options
+      const packContainer = document.getElementById('detail-pack-options');
+      packContainer.innerHTML = '';
+      defaultPacks.forEach((pack, idx) => {
+        const btn = document.createElement('div');
+        btn.className = `pack-btn ${idx === 0 ? 'active' : ''}`;
+        btn.innerHTML = `<span class="pack-size">${pack.unit}</span><span class="pack-price">₹${pack.price}</span>`;
+        btn.onclick = () => selectPackOption(pack, btn);
+        packContainer.appendChild(btn);
+      });
+
+      updateDetailPrice();
+
+      const overlay = document.getElementById('product-detail-overlay');
+      overlay.classList.add('active');
+      toggleModalScrollLock(true);
+
+      if (window.gsap) {
+        gsap.fromTo('#product-detail-content',
+          { scale: 0.88, opacity: 0, y: 30 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.2)" }
+        );
+      }
+    }
+
+    function closeProductDetail() {
+      document.getElementById('product-detail-overlay').classList.remove('active');
+      toggleModalScrollLock(false);
+    }
+
+    function selectPackOption(pack, element) {
+      currentDetailPack = pack;
+      document.querySelectorAll('.pack-btn').forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
+      updateDetailPrice();
+    }
+
+    function adjustDetailQty(delta) {
+      currentDetailQty += delta;
+      if (currentDetailQty < 1) currentDetailQty = 1;
+      document.getElementById('detail-qty-val').textContent = currentDetailQty;
+      updateDetailPrice();
+    }
+
+    function updateDetailPrice() {
+      if (!currentDetailPack) return;
+      const total = currentDetailPack.price * currentDetailQty;
+      document.getElementById('detail-price-display').textContent = `₹${total}`;
+    }
+
+    function addDetailToCart() {
+      if (!currentDetailProduct || !currentDetailPack) return;
+
+      const itemToCart = {
+        _id: `${currentDetailProduct._id}-${currentDetailPack.unit}`,
+        title: `${currentDetailProduct.title} (${currentDetailPack.unit})`,
+        price: currentDetailPack.price,
+        img: currentDetailProduct.img,
+        fallback: currentDetailProduct.fallback,
+        qty: currentDetailQty
+      };
+
+      const existing = cart.find(item => item._id === itemToCart._id);
+      if (existing) {
+        existing.qty += currentDetailQty;
+      } else {
+        cart.push(itemToCart);
+      }
+
+      updateCartUI();
+      closeProductDetail();
+      showToast(`${itemToCart.title} added to cart!`, 'success');
+      openCart();
+    }
+
+    // --- Cart & Modal Logic ---
+    function openCart() {
+      document.getElementById('cart-overlay').classList.add('active');
+      toggleModalScrollLock(true);
+      updateCartUI();
+    }
+    function closeCart() {
+      document.getElementById('cart-overlay').classList.remove('active');
+      toggleModalScrollLock(false);
+    }
+    function openTrackModal() {
+      document.getElementById('track-overlay').classList.add('active');
+      toggleModalScrollLock(true);
+    }
+    function closeTrackModal() {
+      document.getElementById('track-overlay').classList.remove('active');
+      toggleModalScrollLock(false);
+    }
+    function closeReceipt() {
+      document.getElementById('receipt-overlay').classList.remove('active');
+      toggleModalScrollLock(false);
+    }
+
+    document.querySelectorAll('.overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+          toggleModalScrollLock(false);
+        }
+      });
+    });
+
+    function addToCart(id) {
+      const product = products.find(p => p._id === id);
+      if (!product) return;
+
+      const pack = (product.packSizes && product.packSizes[0]) ? product.packSizes[0] : { unit: product.unit, price: product.price };
+      const cartItemId = `${product._id}-${pack.unit}`;
+
+      const existing = cart.find(item => item._id === cartItemId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({
+          _id: cartItemId,
+          title: `${product.title} (${pack.unit})`,
+          price: pack.price,
+          img: product.img,
+          fallback: product.fallback,
+          qty: 1
+        });
+      }
+
+      updateCartUI();
+      const badge = document.getElementById('cart-count');
+      badge.style.transform = 'scale(1.4)';
+      setTimeout(() => badge.style.transform = 'scale(1)', 200);
+      showToast(`${product.title} added to cart!`, 'success');
+      openCart();
+    }
+
+    function updateQty(id, delta) {
+      const item = cart.find(i => i._id === id);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) cart = cart.filter(i => i._id !== id);
+      updateCartUI();
+    }
+
+    function removeItem(id) {
+      cart = cart.filter(i => i._id !== id);
+      updateCartUI();
+    }
+
+    function getCartTotal() { return cart.reduce((sum, item) => sum + (item.price * item.qty), 0); }
+
+    function updateCartUI() {
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-count').textContent = totalQty;
+      const container = document.getElementById('cart-items-container');
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:#999; margin-top:60px; font-size:1.05rem;"><i class="fa-solid fa-basket-shopping" style="font-size:2.5rem; color:#ddd; display:block; margin-bottom:12px;"></i>Your cart is empty.</p>';
+        document.getElementById('checkout-start-btn').style.display = 'none';
+        document.getElementById('delivery-form').style.display = 'none';
+        document.getElementById('cart-total-price').textContent = '₹0';
+        return;
+      }
+
+      document.getElementById('checkout-start-btn').style.display = 'block';
+      let html = '';
+      cart.forEach(item => {
+        html += `
+          <div class="cart-item">
+            <img src="${item.img}" onerror="this.src='${item.fallback}'" alt="">
+            <div class="cart-item-info">
+              <div class="cart-item-title">${item.title}</div>
+              <div class="cart-item-price">₹${item.price}</div>
+              <div class="qty-controls">
+                <button class="qty-btn" onclick="updateQty('${item._id}', -1)">-</button>
+                <span style="font-size:0.9rem; font-weight:700;">${item.qty}</span>
+                <button class="qty-btn" onclick="updateQty('${item._id}', 1)">+</button>
+              </div>
+            </div>
+            <button class="remove-btn" onclick="removeItem('${item._id}')"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+      document.getElementById('cart-total-price').textContent = '₹' + getCartTotal();
+    }
+
+    function togglePayMethodStyle() {
+      const onlineRadio = document.getElementById('pay-method-online');
+      const onlineLabel = document.getElementById('pay-opt-online-label');
+      const codLabel = document.getElementById('pay-opt-cod-label');
+      if (onlineRadio && onlineRadio.checked) {
+        onlineLabel.style.border = '2px solid var(--saffron)';
+        onlineLabel.style.background = 'rgba(227,115,64,0.08)';
+        codLabel.style.border = '1px solid #ccc';
+        codLabel.style.background = '#fff';
+      } else {
+        codLabel.style.border = '2px solid var(--crimson)';
+        codLabel.style.background = 'rgba(138,28,20,0.08)';
+        onlineLabel.style.border = '1px solid #ccc';
+        onlineLabel.style.background = '#fff';
+      }
+    }
+
+    async function showCheckoutOptions() {
+      if (!currentUser) {
+        showToast('Please Login or Sign Up to complete your order', 'info');
+        return openLogin();
+      }
+
+      const form = document.getElementById('delivery-form');
+      if (form.style.display !== 'block') {
+        form.style.display = 'block';
+        if (currentUser) {
+          document.getElementById('cust-name').value = currentUser.name || '';
+          const fullAddr = [currentUser.building, currentUser.address, currentUser.landmark, currentUser.city, currentUser.pincode]
+            .filter(Boolean).join(', ');
+          document.getElementById('cust-address').value = fullAddr || currentUser.address || '';
+        }
+        document.getElementById('checkout-start-btn').textContent = 'Confirm Order & Pay';
+        return;
+      }
+
+      const name = document.getElementById('cust-name').value.trim();
+      const addr = document.getElementById('cust-address').value.trim();
+      if (!name || !addr) return showToast('Please enter recipient name and address', 'error');
+
+      const specialReq = document.getElementById('cust-special-request')?.value.trim() || '';
+      const payMethod = document.querySelector('input[name="pay-method-radio"]:checked')?.value || 'ONLINE';
+      const generatedOrderId = `BF-${Math.floor(100000 + Math.random() * 900000)}`;
+      const totalAmt = getCartTotal();
+
+      const orderPayload = {
+        orderId: generatedOrderId,
+        items: cart.map(item => ({ title: item.title, qty: item.qty, price: item.price })),
+        totalAmount: totalAmt,
+        specialRequest: specialReq,
+        deliveryAddress: {
+          name: name,
+          email: currentUser ? currentUser.email : '',
+          mobile: currentUser ? currentUser.mobile : '',
+          address: addr,
+          specialRequest: specialReq
+        },
+        paymentMethod: payMethod
+      };
+
+      const btn = document.getElementById('checkout-start-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Order...';
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+
+        const res = await fetch(`${API_URL}/orders`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(orderPayload)
+        });
+        const data = await res.json();
+
+        if (payMethod === 'ONLINE') {
+          launchUpiQrPaymentModal(generatedOrderId, name, addr, totalAmt);
+          return;
+        }
+      } catch (err) {
+        if (payMethod === 'ONLINE') {
+          launchUpiQrPaymentModal(generatedOrderId, name, addr, totalAmt);
+          return;
+        }
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Confirm Order & Pay';
+      }
+
+      finalizeOrder(generatedOrderId, name, addr, 'COD');
+    }
+
+    let currentUpiVpa = 'connectaradhya@okaxis';
+    let currentUpiOrderData = null;
+
+    async function fetchPublicPaymentSettings() {
+      try {
+        const res = await fetch(`${API_URL}/payment-settings`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.upiVpa) currentUpiVpa = data.upiVpa;
+        }
+      } catch (e) { }
+    }
+
+    async function launchUpiQrPaymentModal(orderId, name, addr, totalAmt) {
+      await fetchPublicPaymentSettings();
+      currentUpiOrderData = { orderId, name, addr, totalAmt };
+
+      document.getElementById('upi-qr-order-id').textContent = `#${orderId}`;
+      document.getElementById('upi-qr-amount').textContent = `₹${totalAmt}`;
+      document.getElementById('upi-vpa-display').textContent = currentUpiVpa;
+
+      const cleanVpa = currentUpiVpa.trim();
+      const upiString = `upi://pay?pa=${encodeURIComponent(cleanVpa)}&pn=${encodeURIComponent('Balaji Foods')}&am=${totalAmt}&cu=INR&tn=${encodeURIComponent('Order ' + orderId)}`;
+
+      const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(upiString)}`;
+      document.getElementById('upi-qr-img').src = qrImgUrl;
+
+      const deepLinkBtn = document.getElementById('upi-deeplink-btn');
+      if (deepLinkBtn) deepLinkBtn.href = upiString;
+
+      const utrInput = document.getElementById('upi-utr-input');
+      if (utrInput) utrInput.value = '';
+
+      closeCart();
+      document.getElementById('upi-qr-overlay').classList.add('active');
+      toggleModalScrollLock(true);
+    }
+
+    function appendSpecialReqTag(tag) {
+      const el = document.getElementById('cust-special-request');
+      if (!el) return;
+      if (el.value.includes(tag)) return;
+      el.value = el.value ? `${el.value}, ${tag}` : tag;
+    }
+
+    function closeUpiQrModal() {
+      document.getElementById('upi-qr-overlay').classList.remove('active');
+      toggleModalScrollLock(false);
+    }
+
+    function copyUpiVpa() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(currentUpiVpa);
+        showToast(`UPI ID ${currentUpiVpa} copied to clipboard!`, 'success');
+      } else {
+        showToast(`Owner UPI ID: ${currentUpiVpa}`, 'info');
+      }
+    }
+
+    async function confirmUpiQrPayment() {
+      if (!currentUpiOrderData) return;
+      const { orderId, name, addr } = currentUpiOrderData;
+      const utrInput = document.getElementById('upi-utr-input');
+      const utrVal = utrInput ? utrInput.value.trim() : '';
+
+      if (!utrVal || utrVal.length < 6) {
+        showToast('Please enter your 12-digit UPI UTR / Ref ID from GPay/PhonePe to submit for owner verification.', 'error');
+        if (utrInput) utrInput.focus();
+        return;
+      }
+
+      const btn = event?.currentTarget || document.querySelector('#upi-qr-overlay button.btn');
+      const origText = btn ? btn.innerHTML : 'I Have Completed Payment';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting UTR Reference...';
+      }
+
+      showToast('Submitting UTR reference for owner verification...', 'info');
+
+      try {
+        await fetch(`${API_URL}/payment/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            order_id: orderId,
+            utr_number: utrVal,
+            razorpay_payment_id: `UTR-${utrVal}`,
+            razorpay_signature: 'upi_qr_verified'
+          })
+        });
+      } catch (e) {
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origText;
+        }
+      }
+
+      closeUpiQrModal();
+      showToast(`UTR ${utrVal} submitted! Status: Pending Owner Verification.`, 'info');
+      finalizeOrder(orderId, name, addr, `🟡 Verification Pending (UTR: ${utrVal})`);
+    }
+
+    function finalizeOrder(orderId, name, addr, payStatusMode = 'COD') {
+      closeCart();
+      showToast(`Order #${orderId} Placed Successfully!`, 'success');
+      generateReceipt(orderId, name, addr, payStatusMode);
+      cart = [];
+      updateCartUI();
+    }
+
+    function generateReceipt(orderId, name, addr, payStatusMode = 'Confirmed') {
+      document.getElementById('receipt-overlay').classList.add('active');
+      toggleModalScrollLock(true);
+      document.getElementById('receipt-date').textContent = new Date().toLocaleString() + " | Order ID: #" + orderId;
+      document.getElementById('r-name').textContent = name || document.getElementById('cust-name').value;
+      document.getElementById('r-addr').textContent = addr || document.getElementById('cust-address').value;
+      document.getElementById('r-mode').textContent = payStatusMode;
+
+      const specialReq = document.getElementById('cust-special-request')?.value.trim() || '';
+      const specialBox = document.getElementById('r-special-box');
+      const specialText = document.getElementById('r-special-text');
+      if (specialReq && specialBox && specialText) {
+        specialText.textContent = specialReq;
+        specialBox.style.display = 'block';
+      } else if (specialBox) {
+        specialBox.style.display = 'none';
+      }
+
+      const noteBox = document.getElementById('r-verification-note');
+      if (noteBox) {
+        if (payStatusMode.toLowerCase().includes('pending') || payStatusMode.toLowerCase().includes('utr') || payStatusMode.includes('🟡')) {
+          noteBox.style.display = 'block';
+        } else {
+          noteBox.style.display = 'none';
+        }
+      }
+
+      let html = '';
+      cart.forEach(item => { html += `<div class="receipt-item-row"><span>${item.qty}x ${item.title}</span><span>₹${item.price * item.qty}</span></div>`; });
+      document.getElementById('r-items').innerHTML = html;
+      document.getElementById('r-total').textContent = `₹${getCartTotal()}`;
+    }
+
+    // --- My Orders History Portal Logic ---
+    async function openMyOrders() {
+      if (!currentUser) {
+        showToast('Please Login to view your order history', 'info');
+        return openLogin();
+      }
+      document.getElementById('my-orders-overlay').classList.add('active');
+      toggleModalScrollLock(true);
+      await fetchMyOrders();
+    }
+
+    function closeMyOrders() {
+      document.getElementById('my-orders-overlay').classList.remove('active');
+      toggleModalScrollLock(false);
+    }
+
+    async function fetchMyOrders() {
+      const container = document.getElementById('my-orders-container');
+      container.innerHTML = '<p style="text-align:center; padding:30px; color:#888;"><i class="fa-solid fa-spinner fa-spin"></i> Loading your order history...</p>';
+
+      try {
+        const headers = {};
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch(`${API_URL}/user/orders?email=${encodeURIComponent(currentUser.email)}`, { headers });
+        const orders = await res.json();
+        renderMyOrders(orders);
+      } catch (err) {
+        renderMyOrders([]);
+      }
+    }
+
+    function renderMyOrders(orders) {
+      const container = document.getElementById('my-orders-container');
+      if (!orders || orders.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:40px 20px;">
+            <i class="fa-solid fa-box-open" style="font-size:3rem; color:#ddd; margin-bottom:12px; display:block;"></i>
+            <h4 style="color:var(--text-dark); margin-bottom:6px;">No orders found</h4>
+            <p style="font-size:0.9rem; color:#777; margin-bottom:18px;">You haven't placed any orders yet.</p>
+            <a href="#menu" onclick="closeMyOrders()" class="btn">Start Shopping Now</a>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      orders.forEach(order => {
+        const dateStr = order.createdAt ? new Date(order.createdAt).toLocaleDateString() + ' ' + new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Recent';
+        const itemsHtml = (order.items || []).map(i => `<span style="background:#fdf8f4; border:1px solid #eedec0; padding:4px 10px; border-radius:12px; font-size:0.83rem; font-weight:600; color:var(--text-dark); display:inline-block; margin:2px;"><i class="fa-solid fa-cookie"></i> ${i.qty || 1}x ${i.title} (₹${i.price || 0})</span>`).join(' ');
+
+        const specReq = order.specialRequest || order.deliveryAddress?.specialRequest || '';
+        const specHtml = specReq ? `<div style="background:#fff8e7; border:1px solid #eedec0; padding:8px 12px; border-radius:12px; font-size:0.83rem; color:#8a5300; margin-bottom:12px;"><i class="fa-solid fa-comment-dots" style="color:var(--saffron);"></i> <strong>Special Request:</strong> ${specReq}</div>` : '';
+
+        let payBadgeText = 'COD';
+        let payBadgeBg = '#fff3cd';
+        let payBadgeFg = '#856404';
+
+        if (order.paymentStatus === 'Paid') {
+          payBadgeText = '🟢 Paid';
+          payBadgeBg = '#d4edda';
+          payBadgeFg = '#155724';
+        } else if (order.paymentStatus?.includes('Pending') || order.paymentStatus?.includes('Verification')) {
+          payBadgeText = '🟡 Verification Pending';
+          payBadgeBg = '#fff3cd';
+          payBadgeFg = '#856404';
+        } else if (order.paymentStatus?.includes('Rejected') || order.paymentStatus?.includes('Failed')) {
+          payBadgeText = '🔴 Payment Rejected';
+          payBadgeBg = '#f8d7da';
+          payBadgeFg = '#721c24';
+        } else if (order.paymentMethod === 'ONLINE') {
+          payBadgeText = 'Online';
+        }
+
+        html += `
+          <div style="background:white; border:1px solid rgba(212,175,55,0.35); border-radius:18px; padding:20px; margin-bottom:18px; box-shadow:0 4px 15px rgba(0,0,0,0.04); text-align:left;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:12px; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+              <div>
+                <strong style="color:var(--crimson); font-size:1.05rem;">Order #${order.orderId}</strong>
+                <span style="font-size:0.78rem; color:#777; display:block; margin-top:2px;">Placed on: ${dateStr}</span>
+              </div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <span class="status-pill" style="background:${payBadgeBg}; color:${payBadgeFg}; font-weight:700;">${payBadgeText}</span>
+                <span class="status-pill status-${order.deliveryStatus || 'Pending'}">${order.deliveryStatus || 'Pending'}</span>
+              </div>
+            </div>
+
+            ${specHtml}
+
+            <div style="margin-bottom:14px;">
+              <p style="font-size:0.82rem; font-weight:700; color:#555; margin-bottom:6px;">Items Ordered:</p>
+              ${itemsHtml}
+            </div>
+
+            <div style="background:#fcfcfc; padding:10px 14px; border-radius:12px; border:1px solid #eee; font-size:0.85rem; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <span style="color:#777;">Delivery Address:</span> <strong style="color:#333;">${order.deliveryAddress?.name || 'Valued Customer'}</strong>, <small style="color:#555;">${order.deliveryAddress?.address || 'Saved Address'}</small>
+              </div>
+              <div style="font-size:1.1rem; font-weight:800; color:var(--crimson);">
+                Total: ₹${order.totalAmount}
+              </div>
+            </div>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+              <button class="btn-outline" style="padding:7px 16px; font-size:0.82rem;" onclick="closeMyOrders(); openTrackModalWithId('${order.orderId}')">
+                <i class="fa-solid fa-truck-fast"></i> Track Status
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function openTrackModalWithId(id) {
+      document.getElementById('track-id-input').value = id;
+      openTrackModal();
+      trackOrder();
+    }
+
+    async function trackOrder() {
+      const id = document.getElementById('track-id-input').value.trim();
+      if (!id) return showToast('Please enter your Order ID', 'error');
+
+      document.getElementById('track-results').style.display = 'block';
+      document.getElementById('track-order-id-display').textContent = `Order ID: #${id.toUpperCase()}`;
+
+      document.querySelectorAll('.step').forEach((s, idx) => {
+        s.classList.toggle('active', idx <= 1);
+      });
+
+      document.getElementById('track-status-text').textContent = 'Your Diwali Faral is being freshly prepared!';
+      document.getElementById('track-eta-text').textContent = 'Tomorrow by 5:00 PM';
+    }
+
+    function downloadPDFReceipt() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const name = document.getElementById('r-name').textContent;
+      const addr = document.getElementById('r-addr').textContent;
+      const total = document.getElementById('r-total').textContent;
+      const date = document.getElementById('receipt-date').textContent;
+
+      doc.setFontSize(22);
+      doc.setTextColor(138, 28, 20);
+      doc.text("Balaji Foods — Order Receipt", 20, 30);
+
+      doc.setFontSize(11);
+      doc.setTextColor(50, 50, 50);
+      doc.text(`Date/ID: ${date}`, 20, 44);
+      doc.text(`Customer: ${name}`, 20, 54);
+      doc.text(`Address: ${addr}`, 20, 64);
+
+      doc.setLineWidth(0.5);
+      doc.line(20, 74, 190, 74);
+
+      doc.setFontSize(14);
+      doc.setTextColor(138, 28, 20);
+      doc.text("Order Items:", 20, 84);
+
+      let y = 94;
+      doc.setFontSize(11);
+      doc.setTextColor(0, 0, 0);
+      cart.forEach(item => {
+        doc.text(`- ${item.qty}x ${item.title}`, 25, y);
+        doc.text(`Rs ${item.price * item.qty}`, 165, y);
+        y += 10;
+      });
+
+      doc.line(20, y, 190, y);
+      doc.setFontSize(14);
+      doc.setTextColor(138, 28, 20);
+      doc.text(`Total Amount: ${total}`, 120, y + 14);
+
+      doc.setFontSize(10);
+      doc.setTextColor(140, 140, 140);
+      doc.text("Thank you for choosing Balaji Foods! Happy Diwali!", 20, y + 36);
+
+      doc.save(`Balaji_Foods_Order_${Date.now()}.pdf`);
+    }
+
+    // --- Interactive Story Era Switcher ---
+    const STORY_ERAS = {
+      '1978': {
+        subtitle: "Generation I • Grandmother's Legacy",
+        title: "Hand-Crafted Sweets in Pure Gir Cow Ghee",
+        desc: "In 1978, our journey began in a humble family kitchen in Maharashtra. Equipped only with heavy copper kadais, pure A2 Gir cow ghee, and secret spice recipes, we started hand-crafting Diwali sweets for our neighbors.",
+        quote: '"A festival without the aroma of pure ghee besan ladoo is like a lamp without light."',
+        img: "balaji_story_heritage.png",
+        badge: "EST. 1978"
+      },
+      '1998': {
+        subtitle: "Generation II • Mastering Roasting Physics",
+        title: "Slow Copper-Vessel Flame Roasting",
+        desc: "By 1998, Balaji Foods perfected the science of temperature control. Gram flour and dry fruits are slow-roasted for hours over low flames in pure golden ghee, achieving a melt-in-the-mouth texture.",
+        quote: '"Purity is not an option; it is our family tradition passed down through decades."',
+        img: "balaji_ladoo_hero.png",
+        badge: "PERFECTED 1998"
+      },
+      '2026': {
+        subtitle: "Generation III • Royal Silk Hampers & PAN India",
+        title: "Modern Food Packaging & Pure Ghee Promise",
+        desc: "Today, we blend generations of secret family recipes with state-of-the-art nitrogen freshness sealing and velvet silk hampers — serving over 50,000 Diwali celebrations across India.",
+        quote: '"Bringing authentic Maharashtrian festive sweetness straight to your doorstep."',
+        img: "gift_box_new.png",
+        badge: "ROYAL 2026"
+      }
+    };
+
+    function switchStoryEra(era) {
+      const eras = ['1978', '1998', '2026'];
+      eras.forEach((e, idx) => {
+        const stepEl = document.getElementById(`feature-step-${e}`);
+        const badgeEl = document.getElementById(`step-badge-${e}`);
+        if (stepEl && badgeEl) {
+          if (e === era) {
+            stepEl.style.background = 'rgba(227,115,64,0.08)';
+            stepEl.style.borderColor = 'rgba(227,115,64,0.3)';
+            badgeEl.style.background = 'var(--saffron)';
+            badgeEl.style.color = 'white';
+            badgeEl.innerHTML = '✓';
+          } else {
+            stepEl.style.background = '#fff';
+            stepEl.style.borderColor = '#eee';
+            badgeEl.style.background = '#f0f0f0';
+            badgeEl.style.color = '#666';
+            badgeEl.innerHTML = `${idx + 1}`;
+          }
+        }
+      });
+
+      const progressBar = document.getElementById('story-progress-bar');
+      if (progressBar) {
+        if (era === '1978') progressBar.style.width = '33%';
+        else if (era === '1998') progressBar.style.width = '66%';
+        else progressBar.style.width = '100%';
+      }
+
+      const data = STORY_ERAS[era];
+      if (!data) return;
+
+      const showcase = document.getElementById('story-showcase-box');
+      if (showcase) {
+        showcase.style.opacity = '0.4';
+        showcase.style.transform = 'translateY(10px)';
+        showcase.style.transition = 'all 0.3s ease';
+
+        setTimeout(() => {
+          document.getElementById('story-title-text').textContent = data.title;
+          document.getElementById('story-desc-text').textContent = data.desc;
+          document.getElementById('story-quote-text').textContent = data.quote;
+          document.getElementById('story-image-element').src = data.img;
+          document.getElementById('story-badge-element').textContent = data.badge;
+
+          showcase.style.opacity = '1';
+          showcase.style.transform = 'translateY(0)';
+        }, 200);
+      }
+    }
+
+    function openPurityModal(pillar) {
+      const messages = {
+        ghee: "100% Gir Cow Ghee Promise: Every sweet is fried and roasted exclusively in certified A2 Gir Cow Ghee with zero palm oil or vanaspati.",
+        roast: "Slow Copper Roasting: Heavy copper vessels distribute heat evenly without burning, creating our signature golden aroma.",
+        spices: "Zero Preservatives: We use pure ground spices, green cardamom, and Kashmiri saffron strands without chemical additives.",
+        packaging: "45-Day Freshness Pack: Food-grade vacuum & nitrogen flushing locks in crunchiness for up to 45 days!"
+      };
+      showToast(messages[pillar] || "Purity Guaranteed by Balaji Foods!", "info");
+    }
+
+    function sendWhatsAppOrder() {
+      const name = document.getElementById('cust-name').value;
+      const addr = document.getElementById('cust-address').value;
+      const msg = `Namaste Balaji Foods! I placed an order:\nName: ${name}\nAddress: ${addr}\nTotal: ${document.getElementById('r-total').textContent}`;
+      window.open(`https://wa.me/${whatsappNum}?text=${encodeURIComponent(msg)}`, '_blank');
+      closeReceipt();
+    }
+
+    // --- Dynamic Hero Showcase Config ---
+    async function fetchHeroConfig() {
+      try {
+        const res = await fetch(`${API_URL}/admin/hero-config`);
+        if (res.ok) {
+          const cfg = await res.json();
+          applyDynamicHeroConfig(cfg);
+          return;
+        }
+      } catch (err) { }
+      const local = localStorage.getItem('balaji_hero_config');
+      if (local) {
+        try { applyDynamicHeroConfig(JSON.parse(local)); } catch (e) { }
+      }
+    }
+
+    function applyDynamicHeroConfig(cfg) {
+      if (!cfg) return;
+
+      // Main Center Platter
+      if (cfg.main) {
+        const mainCard = document.querySelector('.hero-main-card');
+        if (mainCard) {
+          if (cfg.main.img) mainCard.querySelector('img').src = cfg.main.img;
+          if (cfg.main.title) {
+            const badgeSpan = mainCard.querySelector('.main-card-badge span');
+            if (badgeSpan) badgeSpan.innerHTML = `<i class="fa-solid fa-crown" style="color:var(--gold)"></i> ${cfg.main.title}`;
+          }
+          if (cfg.main.productId) mainCard.setAttribute('onclick', `openProductDetail('${cfg.main.productId}')`);
+        }
+      }
+
+      // Helper to update orbit cards
+      const updateOrbit = (selector, data) => {
+        if (!data) return;
+        const card = document.querySelector(selector);
+        if (!card) return;
+        if (data.img) card.querySelector('img').src = data.img;
+        if (data.title) card.querySelector('.orbit-title').textContent = data.title;
+        if (data.sub) card.querySelector('.orbit-sub').textContent = data.sub;
+        if (data.productId) card.setAttribute('onclick', `openProductDetail('${data.productId}')`);
+      };
+
+      updateOrbit('.orbit-tl', cfg.topLeft);
+      updateOrbit('.orbit-tr', cfg.topRight);
+      updateOrbit('.orbit-bl', cfg.bottomLeft);
+      updateOrbit('.orbit-br', cfg.bottomRight);
+    }
+
+    // --- Initializer ---
+    window.onload = () => {
+      updateAuthUI();
+      fetchProducts();
+      fetchHeroConfig();
+      initLenisScroll();
+      initGSAPAnimations();
+    };
+
+    // --- 1. Vanta.js Golden Background ---
+    let vantaEffect = null;
+    function initVantaEffect() {
+      if (window.VANTA && window.VANTA.FOG) {
+        vantaEffect = window.VANTA.FOG({
+          el: "#hero-vanta-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          highlightColor: 0xd4af37,
+          midtoneColor: 0x5c1d0c,
+          lowlightColor: 0x110704,
+          baseColor: 0x180c07,
+          blurFactor: 0.65,
+          speed: 1.40
+        });
+      }
+    }
+
+    // --- 2. Lenis Smooth Scroll ---
+    let lenis = null;
+    function initLenisScroll() {
+      if (window.Lenis) {
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        if (window.ScrollTrigger) {
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+          });
+          gsap.ticker.lagSmoothing(0);
+        }
+      }
+    }
+
+    // --- 3. GSAP Animations & Hero Scroll Choreography ---
+    function initGSAPAnimations() {
+      if (!window.gsap) return;
+      if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+      // Fade up animations
+      gsap.utils.toArray('.gsap-fade-up').forEach(element => {
+        gsap.from(element, {
+          scrollTrigger: { trigger: element, start: "top 88%", toggleActions: "play none none reverse" },
+          y: 40, opacity: 0, duration: 0.9, ease: "power2.out"
+        });
+      });
+
+      // Hero Scroll Choreography
+      const heroContainer = document.getElementById('hero-3d-showcase');
+      if (heroContainer && window.ScrollTrigger) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1
+          }
+        });
+
+        tl.to('.orbit-tl', { x: -80, y: -60, opacity: 0.3, ease: "none" }, 0)
+          .to('.orbit-tr', { x: 80, y: -60, opacity: 0.3, ease: "none" }, 0)
+          .to('.orbit-bl', { x: -80, y: 60, opacity: 0.3, ease: "none" }, 0)
+          .to('.orbit-br', { x: 80, y: 60, opacity: 0.3, ease: "none" }, 0)
+          .to('.hero-main-card', { scale: 1.05, y: -20, ease: "none" }, 0);
+
+        // Mouse Move Parallax Tilt
+        heroContainer.addEventListener('mousemove', (e) => {
+          const rect = heroContainer.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) / 20;
+          const y = (e.clientY - rect.top - rect.height / 2) / 20;
+
+          gsap.to('.hero-main-card', {
+            rotationY: x,
+            rotationX: -y,
+            duration: 0.5,
+            ease: "power1.out"
+          });
+          gsap.to('.orbit-tl', { x: -x * 1.5, y: -y * 1.5, duration: 0.6, ease: "power1.out" });
+          gsap.to('.orbit-tr', { x: x * 1.5, y: -y * 1.5, duration: 0.6, ease: "power1.out" });
+          gsap.to('.orbit-bl', { x: -x * 1.5, y: y * 1.5, duration: 0.6, ease: "power1.out" });
+          gsap.to('.orbit-br', { x: x * 1.5, y: y * 1.5, duration: 0.6, ease: "power1.out" });
+        });
+
+        heroContainer.addEventListener('mouseleave', () => {
+          gsap.to('.hero-main-card', { rotationY: 0, rotationX: 0, duration: 0.8, ease: "power2.out" });
+          gsap.to('.hero-orbit-card', { x: 0, y: 0, duration: 0.8, ease: "power2.out" });
+        });
+      }
+    }
+
+    // --- Golden Upward Dust Canvas (Exact Video Match) ---
+    const canvas = document.getElementById('bg-canvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      const numParticles = window.innerWidth < 768 ? 120 : 260;
+      const particles = [];
+
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.8,
+          alpha: Math.random() * 0.75 + 0.25,
+          baseAlpha: Math.random() * 0.65 + 0.25,
+          speedY: Math.random() * 0.45 + 0.15,
+          speedX: (Math.random() - 0.5) * 0.25,
+          twinkleSpeed: Math.random() * 0.03 + 0.01,
+          angle: Math.random() * Math.PI * 2,
+          color: Math.random() > 0.25 ? '#f3c058' : '#ffd700'
+        });
+      }
+
+      function animateGoldDust() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Ambient radial warm gold center glow
+        const radialGlow = ctx.createRadialGradient(width * 0.5, height * 0.45, 10, width * 0.5, height * 0.45, width * 0.65);
+        radialGlow.addColorStop(0, 'rgba(140, 55, 22, 0.28)');
+        radialGlow.addColorStop(0.5, 'rgba(50, 18, 8, 0.14)');
+        radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = radialGlow;
+        ctx.fillRect(0, 0, width, height);
+
+        for (let p of particles) {
+          p.y -= p.speedY;
+          p.angle += 0.02;
+          p.x += Math.sin(p.angle) * 0.35 + p.speedX;
+          p.alpha = p.baseAlpha + Math.sin(p.angle * 2) * 0.25;
+
+          // Wrap around screen boundaries
+          if (p.y < -10) {
+            p.y = height + 10;
+            p.x = Math.random() * width;
+          }
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = Math.max(0.1, Math.min(1, p.alpha));
+          ctx.shadowBlur = p.radius * 4;
+          ctx.shadowColor = '#f3c058';
+          ctx.fill();
+          ctx.restore();
+        }
+
+        requestAnimationFrame(animateGoldDust);
+      }
+
+      animateGoldDust();
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+    }
+  </script>
+</body>
+
+</html>
