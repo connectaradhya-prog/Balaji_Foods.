@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -24,7 +25,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Admin-Password']
 }));
 app.use(bodyParser.json({ limit: '10mb' }));
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
 
 // Connect MongoDB if URI is supplied
 if (process.env.MONGODB_URI && !process.env.MONGODB_URI.includes('<username>')) {
@@ -307,6 +308,16 @@ async function fetchUsersFromSupabase() {
 }
 
 // --- API ROUTES ---
+
+// Serve Storefront index.html
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Serve Admin Portal admin.html
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
 
 // Healthcheck / Server Status
 app.get('/api/health', (req, res) => {
