@@ -3685,7 +3685,7 @@
         card.innerHTML = `
           <div class="card-shine"></div>
           <div class="product-img-wrapper">
-            <img src="${p.img}" alt="${p.title}" class="product-img" onerror="this.onerror=null; this.src='${p.fallback || 'faral.jpg'}';" loading="lazy">
+            <img src="${p.img}" alt="${p.title}" class="product-img" onerror="if(!this.getAttribute('data-tried-fallback')){this.setAttribute('data-tried-fallback','true'); this.src='${p.fallback || 'faral.jpg'}';}else{this.src='faral.jpg';}" loading="lazy">
             <span class="product-tag">${tagText}</span>
             <span class="view-info-hint"><i class="fa-solid fa-expand"></i> Click for Info</span>
           </div>
