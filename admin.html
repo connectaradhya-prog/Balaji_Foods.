@@ -1214,6 +1214,13 @@
       return localStorage.getItem('balaji_admin_password') || 'admin123';
     }
 
+    function getAdminHeaders() {
+      return {
+        'Content-Type': 'application/json',
+        'X-Admin-Password': getAdminPassword()
+      };
+    }
+
     function handleAdminLogin() {
       const pass = document.getElementById('login-admin-pass').value.trim();
       const rememberMe = document.getElementById('admin-remember-me')?.checked;
@@ -1340,7 +1347,7 @@
     // --- Fetch Orders & Delivered Archive ---
     async function fetchOrders() {
       try {
-        const res = await fetch(`${API_URL}/admin/orders`);
+        const res = await fetch(`${API_URL}/admin/orders`, { headers: getAdminHeaders() });
         const data = await res.json();
         const rawOrders = (data && data.length > 0) ? data : getLocalMockOrders();
 
@@ -1473,7 +1480,7 @@
       try {
         await fetch(`${API_URL}/admin/orders/${orderId}`, {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify({ paymentStatus: payStatus })
         });
       } catch (err) {}
@@ -1505,7 +1512,7 @@
       try {
         await fetch(`${API_URL}/admin/orders/${orderId}`, {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify({ status: newStatus })
         });
       } catch (err) { }
@@ -1541,7 +1548,7 @@
     // --- Fetch Products Inventory ---
     async function fetchProducts() {
       try {
-        const res = await fetch(`${API_URL}/admin/products`);
+        const res = await fetch(`${API_URL}/admin/products`, { headers: getAdminHeaders() });
         allProducts = await res.json();
       } catch (err) {
         allProducts = getLocalMockProducts();
@@ -1648,7 +1655,7 @@
       try {
         await fetch(`${API_URL}/products/${id}`, {
           method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify(payload)
         });
         showToast('Product updated successfully!', 'success');
@@ -1694,7 +1701,7 @@
       try {
         const res = await fetch(`${API_URL}/products`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify(payload)
         });
         const data = await res.json();
@@ -1716,7 +1723,7 @@
     async function deleteProduct(id) {
       if (!confirm('Are you sure you want to delete this product from store?')) return;
       try {
-        await fetch(`${API_URL}/products/${id}`, { method: 'DELETE' });
+        await fetch(`${API_URL}/products/${id}`, { method: 'DELETE', headers: getAdminHeaders() });
         showToast('Product removed!');
       } catch (err) {
         showToast('Removed product locally');
@@ -1829,7 +1836,7 @@
     // --- Fetch Registered Customers ---
     async function fetchUsers() {
       try {
-        const res = await fetch(`${API_URL}/admin/users`);
+        const res = await fetch(`${API_URL}/admin/users`, { headers: getAdminHeaders() });
         const data = await res.json();
         allUsers = (data && data.length > 0) ? data : getLocalMockUsers();
       } catch (err) {
@@ -1839,6 +1846,7 @@
         updateStats();
       }
     }
+
 
     function renderUsersTable(users) {
       const tbody = document.getElementById('users-tbody');
@@ -2051,7 +2059,7 @@
     // --- Fetch & Render Transactions History ---
     async function fetchTransactions() {
       try {
-        const res = await fetch(`${API_URL}/admin/transactions`);
+        const res = await fetch(`${API_URL}/admin/transactions`, { headers: getAdminHeaders() });
         if (res.ok) {
           allTransactions = await res.json();
         } else {
@@ -2146,7 +2154,7 @@
     // --- Owner Payment & Bank Settings ---
     async function fetchPaymentSettings() {
       try {
-        const res = await fetch(`${API_URL}/admin/payment-settings`);
+        const res = await fetch(`${API_URL}/admin/payment-settings`, { headers: getAdminHeaders() });
         const settings = await res.json();
         if (settings) {
           if (settings.razorpayKeyId) document.getElementById('set-rzp-key').value = settings.razorpayKeyId;
@@ -2176,7 +2184,7 @@
       try {
         const res = await fetch(`${API_URL}/admin/payment-settings`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify(payload)
         });
         const data = await res.json();
@@ -2205,7 +2213,7 @@
 
     async function fetchHeroConfig() {
       try {
-        const res = await fetch(`${API_URL}/admin/hero-config`);
+        const res = await fetch(`${API_URL}/admin/hero-config`, { headers: getAdminHeaders() });
         const cfg = await res.json();
         applyHeroConfigToForm(cfg);
       } catch (err) {
@@ -2287,7 +2295,7 @@
       try {
         await fetch(`${API_URL}/admin/hero-config`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAdminHeaders(),
           body: JSON.stringify(config)
         });
         showToast('Hero page showcase updated successfully!');
@@ -2295,6 +2303,7 @@
         showToast('Hero page showcase saved to local store!');
       }
     }
+
 
     // --- Load All Data ---
     async function loadAllData() {

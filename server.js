@@ -25,7 +25,14 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Admin-Password']
 }));
 app.use(bodyParser.json({ limit: '10mb' }));
+app.use((req, res, next) => {
+  if (req.url.match(/\.(png|jpg|jpeg|gif|ico|svg|css|js|woff2)$/)) {
+    res.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
+  }
+  next();
+});
 app.use(express.static(path.join(__dirname)));
+
 
 // Connect MongoDB if URI is supplied
 if (process.env.MONGODB_URI && !process.env.MONGODB_URI.includes('<username>')) {
@@ -241,7 +248,8 @@ async function fetchProductsFromSupabase() {
       title: p.title,
       desc: p.desc || p.description,
       price: Number(p.price),
-      img: p.img || p.image_url,
+      img: p.img || p.image_url || 'faral.jpg',
+      fallback: p.fallback || p.img || 'faral.jpg',
       category: p.category,
       unit: p.unit,
       shelfLife: p.shelf_life || p.shelfLife || '45 Days',
@@ -393,6 +401,31 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// AUTH: Verify OTP code
+app.post('/api/auth/verify', async (req, res) => {
+  const { email, otp } = req.body;
+  if (!email) return res.status(400).json({ message: 'Email required' });
+
+  let user = memoryUsers.find(u => u.email === email);
+  if (!user) {
+    user = {
+      _id: `usr-${Date.now()}`,
+      email,
+      name: email.split('@')[0],
+      createdAt: new Date().toISOString()
+    };
+    memoryUsers.unshift(user);
+  }
+
+  const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET || 'balaji_foods_secure_jwt_key_2025', { expiresIn: '14d' });
+  res.json({
+    message: 'OTP verified successfully!',
+    token,
+    user
+  });
+});
+
+
 // PRODUCTS: Get all available
 app.get('/api/products', async (req, res) => {
   const supaProds = await fetchProductsFromSupabase();
@@ -491,6 +524,58 @@ app.delete('/api/products/:id', authenticateAdmin, async (req, res) => {
 
   res.json({ message: 'Product deleted successfully' });
 });
+
+// PRODUCTS: Update / Edit product details
+app.patch('/api/products/:id', authenticateAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { title, desc, price, img, category, unit, shelfLife, gheePercent, energy, story, ingredients } = req.body;
+
+  const idx = memoryProducts.findIndex(p => p._id.toString() === id || p._id === id);
+  if (idx !== -1) {
+    if (title !== undefined) memoryProducts[idx].title = title;
+    if (desc !== undefined) memoryProducts[idx].desc = desc;
+    if (price !== undefined) memoryProducts[idx].price = Number(price);
+    if (img !== undefined) memoryProducts[idx].img = img;
+    if (category !== undefined) memoryProducts[idx].category = category;
+    if (unit !== undefined) memoryProducts[idx].unit = unit;
+    if (shelfLife !== undefined) memoryProducts[idx].shelfLife = shelfLife;
+    if (gheePercent !== undefined) memoryProducts[idx].gheePercent = gheePercent;
+    if (energy !== undefined) memoryProducts[idx].energy = energy;
+    if (story !== undefined) memoryProducts[idx].story = story;
+    if (ingredients !== undefined) {
+      memoryProducts[idx].ingredients = typeof ingredients === 'string'
+        ? ingredients.split(',').map(s => s.trim()).filter(Boolean)
+        : (Array.isArray(ingredients) ? ingredients : memoryProducts[idx].ingredients);
+    }
+  }
+
+  if (supabase) {
+    try {
+      const updateObj = {};
+      if (title !== undefined) updateObj.title = title;
+      if (desc !== undefined) updateObj.desc = desc;
+      if (price !== undefined) updateObj.price = Number(price);
+      if (img !== undefined) updateObj.img = img;
+      if (category !== undefined) updateObj.category = category;
+      if (unit !== undefined) updateObj.unit = unit;
+      if (shelfLife !== undefined) updateObj.shelf_life = shelfLife;
+      if (gheePercent !== undefined) updateObj.ghee_percent = gheePercent;
+      if (energy !== undefined) updateObj.energy = energy;
+      if (story !== undefined) updateObj.story = story;
+      if (ingredients !== undefined) {
+        updateObj.ingredients = typeof ingredients === 'string'
+          ? ingredients.split(',').map(s => s.trim()).filter(Boolean)
+          : ingredients;
+      }
+      await supabase.from('products').update(updateObj).eq('id', id);
+    } catch (e) {
+      console.error('Supabase update product error:', e.message);
+    }
+  }
+
+  res.json({ message: 'Product updated successfully!', product: memoryProducts[idx] || { _id: id } });
+});
+
 
 // ORDERS: Create
 app.post('/api/orders', async (req, res) => {
@@ -742,6 +827,15 @@ app.post('/api/admin/payment-settings', authenticateAdmin, (req, res) => {
   res.status(400).json({ message: 'Invalid payload' });
 });
 
+// PUBLIC & ADMIN: Get Hero showcase configuration
+app.get('/api/hero-config', (req, res) => {
+  res.json(memoryHeroConfig);
+});
+
+app.get('/api/admin/hero-config', (req, res) => {
+  res.json(memoryHeroConfig);
+});
+
 // ADMIN: Hero showcase save
 app.post('/api/admin/hero-config', authenticateAdmin, (req, res) => {
   if (req.body) {
@@ -751,9 +845,49 @@ app.post('/api/admin/hero-config', authenticateAdmin, (req, res) => {
   res.status(400).json({ message: 'Invalid configuration data' });
 });
 
+// ADMIN: Get Online Transactions
+app.get('/api/admin/transactions', authenticateAdmin, async (req, res) => {
+  const supaOrders = await fetchOrdersFromSupabase();
+  const source = (supaOrders && supaOrders.length > 0) ? supaOrders : memoryOrders;
+  const onlineTrans = source.filter(o => o.paymentMethod === 'ONLINE' || o.paymentMethod === 'UPI' || (o.paymentStatus && o.paymentStatus !== 'COD'));
+  res.json(onlineTrans);
+});
+
+// Supabase Initial Products Auto-seeding Helper
+async function autoSeedSupabaseProducts() {
+  if (!supabase) return;
+  try {
+    const { data } = await supabase.from('products').select('id').limit(1);
+    if (!data || data.length === 0) {
+      console.log('🌱 Auto-seeding default products to Supabase products table...');
+      const seedItems = memoryProducts.map(p => ({
+        id: p._id,
+        title: p.title,
+        desc: p.desc,
+        price: p.price,
+        img: p.img,
+        category: p.category,
+        unit: p.unit,
+        shelf_life: p.shelfLife,
+        ghee_percent: p.gheePercent,
+        energy: p.energy,
+        story: p.story,
+        ingredients: p.ingredients,
+        available: p.available
+      }));
+      await supabase.from('products').upsert(seedItems, { onConflict: 'id' });
+      console.log('✅ Default products seeded to Supabase!');
+    }
+  } catch (e) {
+    console.log('Note: Supabase auto-seeding checked - table existing or manual migration ready.');
+  }
+}
+autoSeedSupabaseProducts();
+
 const PORT = process.env.PORT || 5000;
 if (require.main === module) {
   app.listen(PORT, () => console.log(`Balaji Foods Server running on port ${PORT}`));
 }
 
 module.exports = app;
+
